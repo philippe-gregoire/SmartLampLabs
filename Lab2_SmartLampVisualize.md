@@ -7,7 +7,10 @@ typora-copy-images-to: images_Lab2
 ## Introduction
 In this lab, we will use two different techniques to visualize the IoT sensor data collected on the Watson IoT platform.
 
-We will first use the real-time insights dashboard provided by the platform, and then use an external application 
+We will first use the real-time insights dashboard provided by the platform, and then use an external application, in this case Node-RED running as a Cloud Foundry application on the IBM Cloud.
+
+### Prerequisite
+This lab assumes that the RaspiLamp types, schemas and devices of Lab 1 have been setup.
 
 # 1. Creating a dashboard on Watson IoT Platform
 We will now create a graphical interface to plot the data of the various sensors of the lamp.
@@ -126,10 +129,23 @@ Last step, we will program a simple automation mechanism that changes the color 
 
 The lamp will change color depending on the illumination of the LDR sensor.
 
-# Lab Stretch Goal
+# 4. Lab Stretch Goal
 For this section of the Lab, you will be tasked with a creating a more complex Dashboard, without precise instructions but just a functional and visual description, and a few hints.
 
+
+The goal now will be to create a more elaborate dashboard, which will look like the following: ![](images_Lab2/markdown-img-paste-20180609203630961.png)
+* The line chart graph shows the value of both the `solar` and `ldr` sensors
+* The set of buttons on the left will send a single W,R,G,B,0 command to the RaspiLamp
+* The text entry below will send a command string when the `[Set]` button is clicked.
+* The Clear button will reset the line graph
+* The 4 dial gauges below will reflect the current value of the LEDs.
+
+Implementation Hints:
+* To set multiple values on the line graph, each sensor value must be passed in `msg.payload` with a `msg.topic` set to the sensor ID. You can use a `change` node for that, e.g.: ![](images_Lab2/markdown-img-paste-20180609201840581.png)
+* The LEDs colors are in the `d.leds`, as a WRGB field, with an octet for each element of the LED. You will need a `function` node with multiple outputs to split the LED colors into 4 outputs: ![](images_Lab2/markdown-img-paste-2018060920160023.png)
+* To clear the line graph, you must send it a `msg.payload` with an empty array:![](images_Lab2/markdown-img-paste-20180609202111982.png)
+
 ## Be creative!
-On this model, you can design different variations to your liking!
+On this model, you can design different dashboards or automations loops variations to your liking!
 
 # END

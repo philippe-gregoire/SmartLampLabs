@@ -1,0 +1,307 @@
+[
+    {
+        "id": "bf34b05a.b5efe",
+        "type": "ibmiot out",
+        "z": "e687c899.1c0088",
+        "authentication": "boundService",
+        "apiKey": "",
+        "outputType": "cmd",
+        "deviceId": "RaspiLamp9",
+        "deviceType": "RaspiLamp",
+        "eventCommandType": "lamp",
+        "format": "text",
+        "data": " ",
+        "qos": 0,
+        "name": "Set RaspiLamp colors",
+        "service": "registered",
+        "x": 536.1000518798828,
+        "y": 97.80000114440918,
+        "wires": []
+    },
+    {
+        "id": "681341df.3409e",
+        "type": "ui_button",
+        "z": "e687c899.1c0088",
+        "name": "",
+        "group": "676a2063.fde7b",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "Red",
+        "color": "yellow",
+        "bgcolor": "red",
+        "icon": "",
+        "payload": "R",
+        "payloadType": "str",
+        "topic": "",
+        "x": 211.10000610351562,
+        "y": 234.2000026702881,
+        "wires": [
+            [
+                "b430926f.ff96d"
+            ]
+        ]
+    },
+    {
+        "id": "996b1472.1f5a58",
+        "type": "ui_button",
+        "z": "e687c899.1c0088",
+        "name": "",
+        "group": "676a2063.fde7b",
+        "order": 4,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "Blue",
+        "color": "yellow",
+        "bgcolor": "blue",
+        "icon": "",
+        "payload": "B",
+        "payloadType": "str",
+        "topic": "",
+        "x": 214.00000381469727,
+        "y": 325.0000057220459,
+        "wires": [
+            [
+                "b430926f.ff96d"
+            ]
+        ]
+    },
+    {
+        "id": "4815c7c0.a74c88",
+        "type": "ui_button",
+        "z": "e687c899.1c0088",
+        "name": "",
+        "group": "676a2063.fde7b",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "Green",
+        "color": "yellow",
+        "bgcolor": "green",
+        "icon": "",
+        "payload": "G",
+        "payloadType": "str",
+        "topic": "",
+        "x": 213.00000381469727,
+        "y": 278.0000047683716,
+        "wires": [
+            [
+                "b430926f.ff96d"
+            ]
+        ]
+    },
+    {
+        "id": "7b5a7baf.f21464",
+        "type": "ui_button",
+        "z": "e687c899.1c0088",
+        "name": "",
+        "group": "676a2063.fde7b",
+        "order": 5,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "Off",
+        "color": "white",
+        "bgcolor": "black",
+        "icon": "",
+        "payload": "0",
+        "payloadType": "str",
+        "topic": "",
+        "x": 209,
+        "y": 366.00000286102295,
+        "wires": [
+            [
+                "b430926f.ff96d"
+            ]
+        ]
+    },
+    {
+        "id": "39e3db5e.1dc6c4",
+        "type": "ui_button",
+        "z": "e687c899.1c0088",
+        "name": "",
+        "group": "676a2063.fde7b",
+        "order": 1,
+        "width": "3",
+        "height": "1",
+        "passthru": false,
+        "label": "White",
+        "color": "black",
+        "bgcolor": "white",
+        "icon": "",
+        "payload": "W",
+        "payloadType": "str",
+        "topic": "",
+        "x": 209,
+        "y": 190.00000286102295,
+        "wires": [
+            [
+                "b430926f.ff96d"
+            ]
+        ]
+    },
+    {
+        "id": "c0889c2b.dd69b",
+        "type": "ui_text_input",
+        "z": "e687c899.1c0088",
+        "name": "",
+        "label": "",
+        "group": "676a2063.fde7b",
+        "order": 6,
+        "width": "2",
+        "height": "1",
+        "passthru": true,
+        "mode": "text",
+        "delay": "1",
+        "topic": "",
+        "x": 372.1000061035156,
+        "y": 413.0000057220459,
+        "wires": [
+            [
+                "d2a4680e.b2ed78"
+            ]
+        ]
+    },
+    {
+        "id": "df5483f2.39098",
+        "type": "ui_button",
+        "z": "e687c899.1c0088",
+        "name": "",
+        "group": "676a2063.fde7b",
+        "order": 7,
+        "width": "1",
+        "height": "1",
+        "passthru": false,
+        "label": "Set",
+        "color": "",
+        "bgcolor": "",
+        "icon": "",
+        "payload": "LEDSeq",
+        "payloadType": "flow",
+        "topic": "",
+        "x": 206.0999984741211,
+        "y": 415.6000065803528,
+        "wires": [
+            [
+                "b430926f.ff96d",
+                "9ced425c.926a6"
+            ]
+        ]
+    },
+    {
+        "id": "8ef29f83.2dd8e",
+        "type": "debug",
+        "z": "e687c899.1c0088",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 512.1000556945801,
+        "y": 36.40000343322754,
+        "wires": []
+    },
+    {
+        "id": "5ce54c53.3ad3a4",
+        "type": "link in",
+        "z": "e687c899.1c0088",
+        "name": "LampCommand",
+        "links": [
+            "b430926f.ff96d"
+        ],
+        "x": 266.10005617141724,
+        "y": 47.60000228881836,
+        "wires": [
+            [
+                "bf34b05a.b5efe",
+                "8ef29f83.2dd8e"
+            ]
+        ]
+    },
+    {
+        "id": "b430926f.ff96d",
+        "type": "link out",
+        "z": "e687c899.1c0088",
+        "name": "SetColor",
+        "links": [
+            "5ce54c53.3ad3a4"
+        ],
+        "x": 487.100058555603,
+        "y": 234.60000324249268,
+        "wires": []
+    },
+    {
+        "id": "d2a4680e.b2ed78",
+        "type": "change",
+        "z": "e687c899.1c0088",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "LEDSeq",
+                "pt": "flow",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 494.1000556945801,
+        "y": 466.0000057220459,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "9ced425c.926a6",
+        "type": "change",
+        "z": "e687c899.1c0088",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 287.1000061035156,
+        "y": 466.0000057220459,
+        "wires": [
+            [
+                "c0889c2b.dd69b"
+            ]
+        ]
+    },
+    {
+        "id": "676a2063.fde7b",
+        "type": "ui_group",
+        "z": "",
+        "name": "SetLight",
+        "tab": "3344bb3.ff29d44",
+        "order": 1,
+        "disp": true,
+        "width": "3",
+        "collapse": false
+    },
+    {
+        "id": "3344bb3.ff29d44",
+        "type": "ui_tab",
+        "z": "",
+        "name": "RaspiLamp",
+        "icon": "dashboard"
+    }
+]
