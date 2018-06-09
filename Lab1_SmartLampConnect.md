@@ -10,45 +10,36 @@ These practical exercises are intended to illustrate the use of so-called 'intel
 ## Description of hardware device
 The equipment available represents in a reduced model what could be a 'Smart street street lamp'.
 
-The device consists of a Raspberry Pi 3 minicomputer, connected to an Arduino Uno microcontroller.
+The device consists of a Raspberry Pi 3 minicomputer running a Linux flavor called Raspian based on the Debian distribution, to which an Arduino Uno microcontroller is connected via a serial over USB link (blue cable): ![](images_Lab1/SmartLamp.png)
 
-The Raspberry Pi 3 is connected to the internet and the Cloud via a Wi-Fi connection, and will represent the heart of the intelligence of the communicating system.
+The Raspberry Pi 3 is connected to the internet and the Cloud via a Wi-Fi connection, and will represent the heart of the intelligence of the communicating system: ![](images_Lab1/RaspBerryPi.png)
 
-The Arduino Uno is used as a measuring system.
+The Lamp devcice is powered by an Arduino Uno microcontroller unit, and is used to measure sensor values. It is equipped with an ambient light sensor implemented by a LDR (Light Dependent Resistor), a miniature solar panel, and an array of 5 LEDs located below the panel.
+
+The raw sensor values are sent to the Raspberry Pi over the serial link. Commands from the Raspberry Pi are received by the device to set the LED lights values: ![](images_Lab1/LampDevice.png)
 
 The primary function of the street lamp is of course to illuminate by means of a source of light, which will be simulated here by a bar of 5 controllable LEDs.
 
-The device is also equipped with a brightness sensor implemented by a LDR (Light Dependent Resistor), and a miniature solar panel, connected to the Arduino and relayed by the Raspberry to the Cloud.
-
-The Raspberry Pi itself has environmental sensors whose values ​​are added to the feedback of the lamp to the cloud.
+The Raspberry Pi itself has environmental sensors for temperature, pressure, humidity, whose values ​​are added to the payload of the lamp and sent to the cloud.
 
 ## Goal of the lab
 The proposed exerices are intended to illustrate how an intelligent street light would behave, firstly to allow tracking of environmental data, but also to implement 'intelligent' behaviors via programmable automatisms, or to propose new functionalities.
 
 ## Organisation
-1. This first lab exercises are broken down into 6 sections:
-
-  1. Getting started and simple connectivity to the cloud and plotting the data collected by the sensors.
-
-  2. Create an account on the IBM Cloud Watson IoT platform.
-
-  3. Connecting the SmartLamp to the IoT platform, defining and cataloging devices
-
-  4. Create a dashboard to view the data.
-
-  5. Creation of an interactive dashboard to control the lighting of the lamp.
-
-  6. Creation of an automatic lamp control mechanism.
-
-     Z. Bonus: color spread from one group to another
+The two first lab exercises are broken down into 6 sections:
+  Lab 1.1. Getting started and simple connectivity to the cloud and plotting the data collected by the sensors.
+  Lab 1.2. Create an account on the IBM Cloud Watson IoT platform.
+  Lab 1.3. Connecting the SmartLamp to the IoT platform, defining and cataloging devices
+  Lab 2.1. Create a Watson IoT dashboard to view the data.
+  Lab 2.2. Creation of an interactive dashboard to control the lighting of the lamp.
+  Lab 2.3. Creation of an automatic lamp control mechanism.
 
 # 1. Getting started and connectivity
-
 For the exercise, the lamps are connected on the internet via the Raspberry Pi.
 
 A control software, called gateway runs on the Raspberry Pi and has the role of relaying the measurements taken by the sensors connected to the Arduino to the cloud.
 
-This Control software is developed thanks to a visual programming environment, open-source, Node-RED.
+This Control software is developed with a visual programming environment, Node-RED.
 
 Node-RED can run on a variety of hardware types, from linux Single Board Computers such as Raspberry Pi to Cloud Environments.
 
@@ -60,15 +51,12 @@ Node-RED is programmed through a web interface accessible from your laptops.
 
 To get the IP adress of your Raspberry PI, click on the small joystick near the ethernet port. The IP address will scroll on the display.
 
-Access your Raspberry Node-RED instance from your web browser using the on 1880 port i.e. http://<<YOUR-IP-ADDRESS>>:1880/
-
-![](images_Lab1/markdown-img-paste-2018040715382670.png)
+Access your Raspberry Node-RED instance from your web browser using the on 1880 port i.e. http://Raspi_IP_Adress:1880/ ![](images_Lab1/markdown-img-paste-2018040715382670.png)
 
 ### Configuring the gateway to send sensor's data on the cloud
 The different tabs are programs (flows) that implement a functionality of the gateway. For example, the first tab, `SenseIP`, displays the IP address of the Raspberry on the LED display at system startup.
 
-We will focus on the `Watson IoT` tab which is in charge of transmitting the sensor data to the Cloud:
-![](images_Lab1/markdown-img-paste-20180407154409764.png)
+We will focus on the `Watson IoT` tab which is in charge of transmitting the sensor data to the Cloud: ![](images_Lab1/markdown-img-paste-20180407154409764.png)
 
 * Locate the `event` node at the top of the diagram, and double-click on it to open its parameters:
   ![](images_Lab1/markdown-img-paste-20180407154753749.png)
