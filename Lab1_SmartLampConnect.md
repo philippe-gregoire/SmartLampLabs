@@ -242,20 +242,65 @@ Now that the sensor is plugged in, we will be able to introspect it to know its 
 # 4. Configuring historical Data Storage
 Watson IoT Platform has a built-in mechanism to automatically store the incoming device data to No-SQL Storage in a Cloudant DataBase.
 
-A Cloudant DataBase has been setup as patr of the IoT Boilerplate creation. It is used to store the Node-RED configuration and flows, we will now configure Watson ioT platform to also store the device payloads.
+A Cloudant DataBase has been setup as part of the IoT Boilerplate creation. It is used to store the Node-RED configuration and flows.   
+We will now configure Watson IoT platform to also store the device payloads.
 
 We enable this feature as early as possible in the day so that we will have enough collected data for use in the Analytics Labs later on.
 
-* Select the `Extensions` tab in the left-side menu
-*
-* Note: the connection to Cloudant is validated in a Pop-Up window, make sure you display and validate this pop-up.
+Switch back to the Watson IoT platform management interface
+* Select the `Extensions` tab in the left-side menu: ![](images_Lab1/markdown-img-paste-20180609212846241.png)
+* Click `[Setup]` button in the Historical Data Storage pane: ![](images_Lab1/markdown-img-paste-20180609212938862.png)
+* Select the existing Cloudant service instance ![](images_Lab1/markdown-img-paste-20180609213257389.png)
+* On the next panel, you can select the Bucket Interval, which determines how often the name of the storage database is rolled over. For this lab you may choose any one of the options, e.g. `Month`. You can leave the database name to `default`, then click `[Done]`:  ![](images_Lab1/markdown-img-paste-20180609213546855.png)
 
+* Note: as mentioned, 'When you click Done we'll open a new window to authorize connecting the Cloudant service to your Watson IoT Platform service.', so the connection to Cloudant is validated in a Pop-Up window, make sure you display and validate this pop-up. If you have popup disabled in your browser, it may show up elsewhere on the browser page, e.g. for Chrome in the top bar as ![](images_Lab1/markdown-img-paste-20180609213802882.png)   
+Make sure you validate the pop-up!:
+![](images_Lab1/markdown-img-paste-20180609213909366.png), you should go through this window at some point: ![](images_Lab1/markdown-img-paste-20180609214013698.png)
 * Check that data is logged into the Cloudant DB
+* Confirm the connection with the `[Confirm]` button, and verify that the status is now confirmed, such as: ![](images_Lab1/markdown-img-paste-20180609214219273.png)
 
-* Access historical data from Node-RED
+Since the device is sending data, storing into Cloudant should start immediatelly. We can verify this by looking into the Cloudant Database:
+* Go back to the IBM Cloud dashboard: ![](images_Lab1/markdown-img-paste-20180609214610396.png)
+* Locate the Cloudant service and select it, then click the `[Launch]` button ![](images_Lab1/markdown-img-paste-20180609214824409.png)
+* You are taken to the Cloudant management interface. Select the databases icon ![](images_Lab1/markdown-img-paste-20180609215236491.png). You should be seeing a list of databases, of which the Node-RED storage, and your device storage bucket DB:
+![](images_Lab1/markdown-img-paste-20180609215426613.png)
+* Select the database bucket for the current month, you will see your documents, one row for each sensor value. Select one of the rows to see the values.
+* We will add a search index to yield sensor data directly. On the `search` index, select the menu and `clone`: ![](images_Lab1/markdown-img-paste-20180609222319654.png)
+* use `searchdata` as name: ![](images_Lab1/markdown-img-paste-20180609222405554.png)
+* Edit the newly created cone index: ![](images_Lab1/markdown-img-paste-20180609222438284.png)
+* Change the function to return only `sort`, `deviceId`, `timestamp` and then `ldr`, `solar`, `ts` renamed to `dts`, `temp`, `rawTemp`, `humidity`, `temperature`, `pressure`:
+``` javascript
+function (doc) {
+  if (doc.deviceType && doc.deviceId && doc.eventType && doc.timestamp && doc.data) {
+    index("sort", Math.random(), {"store": true});
+    index("deviceId", doc.deviceId, {"store": true});
+    index("timestamp", doc.timestamp, {"store": true});
+    index("ldr", doc.data.d.ldr, {"store": true, "facet":true});
+    index("solar", doc.data.d.solar, {"store": true, "facet":true});
+    index("dts", doc.data.d.ts, {"store": true});
+    index("temp", doc.data.d.temp, {"store": true});
+    index("rawTemp", doc.data.d.rawTemp, {"store": true});
+    index("temperature", doc.data.d.temperature, {"store": true, "facet":true});
+    index("humidity", doc.data.d.humidity, {"store": true, "facet":true});
+    index("pressure", doc.data.d.pressure, {"store": true, "facet":true});
+  }
+}
+```
+Click ![](images_Lab1/markdown-img-paste-20180609223216201.png) to store.
+* Test the index by entering the `*:*` special query on your new `searchindex` index.
+* You can also enter a query such as: `solar:234` or range: `ldr:[16 TO 54]`
+
+Note: the historical data can be accessed from Node-RED using a Cloudant node and the search index.
 
 # 5. Configuring the Raspberry Pi as a gateway
-In the first section of the lab, we have 
+In the first section of the lab, we have configured the RaspBerryPi as a single Device.   
+It could be configured as a Gateway, which would then 
+
+You can optionally do this now, the steps would be:
+* Create a new Gateway type, e.g. `RaspiGateway`
+* Create a `RaspiGatewayX` instance (use the deviceId as password)
+* Modify the Node-RED flow on the RaspBerryPi so that the device connection type is now Gateway. Modify both the WIoTP in and out nodes.
+* The gateway will now send the data on behalf of the device.
 
 # Conclusion
-We have now completed the first Lab and setup IoT Data Collection, we will now build some more data visualization.
+We have now completed the first Lab and setup IoT Data Collection, we will now be able to build data visualization and further analytics.
