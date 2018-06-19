@@ -58,16 +58,15 @@ The different tabs are programs (flows) that implement a functionality of the ga
 
 We will focus on the `Watson IoT` tab which is in charge of transmitting the sensor data to the Cloud: ![](images_Lab1/markdown-img-paste-20180407154409764.png)
 
-* Locate the `event` node at the top of the diagram, and double-click on it to open its parameters:
-  ![](images_Lab1/markdown-img-paste-20180407154753749.png)
+* Locate the `event` node at the top of the diagram, and double-click on it to open its parameters: ![](images_Lab1/markdown-img-paste-20180407154753749.png)
 
 * If not already done, select `Device` and `Quickstart`. An identifier must be filled in the `Quickstart Id` field. This identifier is used to recognize the different devices connecting to the Watson IoT platform on IBM Cloud.
+NOTE: ___The QuickStart identifier must be unique___, so you may want to select e.g. `000000.XXXXXX` where `X` is the number of your Raspberry Pi as identifier.
 
-* Click on `Done` and once back on the 'flow', on the button `Deploy` on the top right:![](images_Lab1/markdown-img-paste-20180407155550960.png)
+* Click on `Done` and once back on the 'flow', on the `Deploy` button at the top right: ![](images_Lab1/markdown-img-paste-20180407155550960.png)
 
-* the status of the `event` node should indicate `connected` preceded by a green dot:
-
-  ![](images_Lab1/markdown-img-paste-2018040715573861.png)
+* The status of the `event` node should indicate `connected` preceded by a green dot:
+![](images_Lab1/markdown-img-paste-2018040715573861.png)
 
 * We will now be able to view the sensor data on the test cloud environment. Reopen the properties of the `event` node by double-clicking on it and select the button to the right of the field `Quickstart Id` ![](images_Lab1/markdown-img-paste-2018040715595513.png). This opens a new tab where the sensor data is displayed:
   ![](images_Lab1/markdown-img-paste-20180407160138581.png)
