@@ -148,4 +148,4 @@ Implementation Hints:
 ## Be creative!
 On this model, you can design different dashboards or automations loops variations to your liking!
 
-# END
+# END of Lab 2
