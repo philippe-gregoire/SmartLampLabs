@@ -70,7 +70,9 @@ You will then execute the notebook actions interactively.
 
 * Switch back to Watson Studio and your RaspiLamp project, and from the `Assets` tab, select `New Notebook`; ![](images_Lab4/markdown-img-paste-20180418004420948.png)
 
-* We have prepared a notebook for use here, which can be found in the box folder at https://ibm.box.com/v/devoxxiotlab/RaspiLamp1_IoT_Exploration.ipynb Download it to your laptop
+* We have prepared a notebook for use here, which can be found in the box folder at https://raw.githubusercontent.com/fdescollonges/SmartLampLabs/Milano/RaspiLamp_IoT_Exploration_Cloudant.ipynb
+
+Download it to your laptop
 * In the new notebook creation, select the `From File` tab ![](images_Lab4/markdown-img-paste-2018041815365544.png)
 * Load the `RaspiLamp_IoT_Exploration_Cloudant.ipynb`, the name gets filled-in.
 
