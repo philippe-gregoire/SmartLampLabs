@@ -1,0 +1,749 @@
+[
+    {
+        "id": "ae08c568.0ed6d",
+        "type": "ibmiot out",
+        "z": "35c4eaef.777e7e",
+        "authentication": "boundService",
+        "apiKey": "",
+        "outputType": "cmd",
+        "deviceId": "RaspiLamp1",
+        "deviceType": "RaspiLamp",
+        "eventCommandType": "lamp",
+        "format": "text",
+        "data": " ",
+        "qos": 0,
+        "name": "Set RaspiLamp colors",
+        "service": "registered",
+        "x": 485.00001525878906,
+        "y": 132.40000438690186,
+        "wires": []
+    },
+    {
+        "id": "643a6474.9fd184",
+        "type": "ui_button",
+        "z": "35c4eaef.777e7e",
+        "name": "",
+        "group": "23258853.87175",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "Red",
+        "color": "yellow",
+        "bgcolor": "red",
+        "icon": "",
+        "payload": "R",
+        "payloadType": "str",
+        "topic": "",
+        "x": 159.99996948242188,
+        "y": 268.80000591278076,
+        "wires": [
+            [
+                "1eb36de3.76095a"
+            ]
+        ]
+    },
+    {
+        "id": "bea84f5.29a893",
+        "type": "ui_button",
+        "z": "35c4eaef.777e7e",
+        "name": "",
+        "group": "23258853.87175",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "Blue",
+        "color": "yellow",
+        "bgcolor": "blue",
+        "icon": "",
+        "payload": "B",
+        "payloadType": "str",
+        "topic": "",
+        "x": 162.89996719360352,
+        "y": 359.6000089645386,
+        "wires": [
+            [
+                "1eb36de3.76095a"
+            ]
+        ]
+    },
+    {
+        "id": "6639111e.0532c8",
+        "type": "ui_button",
+        "z": "35c4eaef.777e7e",
+        "name": "",
+        "group": "23258853.87175",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "Green",
+        "color": "yellow",
+        "bgcolor": "green",
+        "icon": "",
+        "payload": "G",
+        "payloadType": "str",
+        "topic": "",
+        "x": 161.89996719360352,
+        "y": 312.60000801086426,
+        "wires": [
+            [
+                "1eb36de3.76095a"
+            ]
+        ]
+    },
+    {
+        "id": "e64c3e8a.7c932",
+        "type": "ui_button",
+        "z": "35c4eaef.777e7e",
+        "name": "",
+        "group": "23258853.87175",
+        "order": 5,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "Off",
+        "color": "white",
+        "bgcolor": "black",
+        "icon": "",
+        "payload": "0",
+        "payloadType": "str",
+        "topic": "",
+        "x": 157.89996337890625,
+        "y": 400.6000061035156,
+        "wires": [
+            [
+                "1eb36de3.76095a"
+            ]
+        ]
+    },
+    {
+        "id": "2fb95d32.2982ba",
+        "type": "ui_button",
+        "z": "35c4eaef.777e7e",
+        "name": "",
+        "group": "23258853.87175",
+        "order": 4,
+        "width": "3",
+        "height": "1",
+        "passthru": false,
+        "label": "White",
+        "color": "black",
+        "bgcolor": "white",
+        "icon": "",
+        "payload": "W",
+        "payloadType": "str",
+        "topic": "",
+        "x": 157.89996337890625,
+        "y": 224.60000610351562,
+        "wires": [
+            [
+                "1eb36de3.76095a"
+            ]
+        ]
+    },
+    {
+        "id": "249b8483.484abc",
+        "type": "ui_text_input",
+        "z": "35c4eaef.777e7e",
+        "name": "",
+        "label": "",
+        "group": "23258853.87175",
+        "order": 6,
+        "width": "2",
+        "height": "1",
+        "passthru": true,
+        "mode": "text",
+        "delay": "1",
+        "topic": "",
+        "x": 320.9999694824219,
+        "y": 447.6000089645386,
+        "wires": [
+            [
+                "54882e5c.61fb88"
+            ]
+        ]
+    },
+    {
+        "id": "901edc78.8d0998",
+        "type": "ui_button",
+        "z": "35c4eaef.777e7e",
+        "name": "",
+        "group": "23258853.87175",
+        "order": 7,
+        "width": "1",
+        "height": "1",
+        "passthru": false,
+        "label": "Set",
+        "color": "",
+        "bgcolor": "",
+        "icon": "",
+        "payload": "LEDSeq",
+        "payloadType": "flow",
+        "topic": "",
+        "x": 154.99996185302734,
+        "y": 450.20000982284546,
+        "wires": [
+            [
+                "1eb36de3.76095a",
+                "27060596.38704a"
+            ]
+        ]
+    },
+    {
+        "id": "2bcdad13.784df2",
+        "type": "debug",
+        "z": "35c4eaef.777e7e",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 461.0000190734863,
+        "y": 71.00000667572021,
+        "wires": []
+    },
+    {
+        "id": "ddd52460.94ce38",
+        "type": "link in",
+        "z": "35c4eaef.777e7e",
+        "name": "LampCommand",
+        "links": [
+            "1eb36de3.76095a"
+        ],
+        "x": 215.0000195503235,
+        "y": 82.20000553131104,
+        "wires": [
+            [
+                "ae08c568.0ed6d",
+                "2bcdad13.784df2"
+            ]
+        ]
+    },
+    {
+        "id": "1eb36de3.76095a",
+        "type": "link out",
+        "z": "35c4eaef.777e7e",
+        "name": "SetColor",
+        "links": [
+            "ddd52460.94ce38"
+        ],
+        "x": 436.0000219345093,
+        "y": 269.20000648498535,
+        "wires": []
+    },
+    {
+        "id": "54882e5c.61fb88",
+        "type": "change",
+        "z": "35c4eaef.777e7e",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "LEDSeq",
+                "pt": "flow",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 443.0000190734863,
+        "y": 500.6000089645386,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "27060596.38704a",
+        "type": "change",
+        "z": "35c4eaef.777e7e",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 235.99996948242188,
+        "y": 500.6000089645386,
+        "wires": [
+            [
+                "249b8483.484abc"
+            ]
+        ]
+    },
+    {
+        "id": "37b1a83e.9f8008",
+        "type": "ibmiot in",
+        "z": "35c4eaef.777e7e",
+        "authentication": "boundService",
+        "apiKey": "",
+        "inputType": "evt",
+        "logicalInterface": "",
+        "ruleId": "",
+        "deviceId": "",
+        "applicationId": "",
+        "deviceType": "+",
+        "eventType": "+",
+        "commandType": "",
+        "format": "json",
+        "name": "IBM IoT",
+        "service": "registered",
+        "allDevices": true,
+        "allApplications": "",
+        "allDeviceTypes": true,
+        "allLogicalInterfaces": "",
+        "allEvents": true,
+        "allCommands": "",
+        "allFormats": true,
+        "qos": 0,
+        "x": 157.99997329711914,
+        "y": 716.999997138977,
+        "wires": [
+            [
+                "749f0807.0e73a8",
+                "d4a26d57.fb30d8",
+                "660dc06e.fd72f8",
+                "7dd060b8.1e0d58",
+                "920ab634.6ac168"
+            ]
+        ]
+    },
+    {
+        "id": "4b2e26b7.83b1a8",
+        "type": "ui_chart",
+        "z": "35c4eaef.777e7e",
+        "name": "",
+        "group": "63e116cf.8f0778",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "label": "Light",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "",
+        "ymax": "",
+        "removeOlder": 1,
+        "removeOlderPoints": "",
+        "removeOlderUnit": "3600",
+        "cutout": 0,
+        "useOneColor": false,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "useOldStyle": false,
+        "x": 625.9999732971191,
+        "y": 694.999997138977,
+        "wires": [
+            [],
+            []
+        ]
+    },
+    {
+        "id": "749f0807.0e73a8",
+        "type": "change",
+        "z": "35c4eaef.777e7e",
+        "name": "set LDR",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "msg.payload.d.ldr",
+                "tot": "msg"
+            },
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "ldr",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 308.99997329711914,
+        "y": 711.999997138977,
+        "wires": [
+            [
+                "4b2e26b7.83b1a8"
+            ]
+        ]
+    },
+    {
+        "id": "d4a26d57.fb30d8",
+        "type": "debug",
+        "z": "35c4eaef.777e7e",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 416.09994888305664,
+        "y": 1091.4000215530396,
+        "wires": []
+    },
+    {
+        "id": "660dc06e.fd72f8",
+        "type": "change",
+        "z": "35c4eaef.777e7e",
+        "name": "set solar",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.d.solar",
+                "tot": "msg"
+            },
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "solar",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 317.0999755859375,
+        "y": 642,
+        "wires": [
+            [
+                "4b2e26b7.83b1a8",
+                "2ef925b5.bb93ca"
+            ]
+        ]
+    },
+    {
+        "id": "2ef925b5.bb93ca",
+        "type": "ui_button",
+        "z": "35c4eaef.777e7e",
+        "name": "",
+        "group": "63e116cf.8f0778",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "Clear",
+        "color": "",
+        "bgcolor": "",
+        "icon": "",
+        "payload": "[]",
+        "payloadType": "json",
+        "topic": "",
+        "x": 570.1000099182129,
+        "y": 602.999997138977,
+        "wires": [
+            [
+                "4b2e26b7.83b1a8"
+            ]
+        ]
+    },
+    {
+        "id": "7dd060b8.1e0d58",
+        "type": "change",
+        "z": "35c4eaef.777e7e",
+        "name": "set LEDs",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.d.leds",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 313.09997940063477,
+        "y": 780.4000015258789,
+        "wires": [
+            [
+                "68dd1814.b03618"
+            ]
+        ]
+    },
+    {
+        "id": "68dd1814.b03618",
+        "type": "ui_text",
+        "z": "35c4eaef.777e7e",
+        "group": "63e116cf.8f0778",
+        "order": 4,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "LEDs: ",
+        "format": "{{msg.payload}}",
+        "layout": "row-center",
+        "x": 629.1000099182129,
+        "y": 748.999997138977,
+        "wires": []
+    },
+    {
+        "id": "920ab634.6ac168",
+        "type": "function",
+        "z": "35c4eaef.777e7e",
+        "name": "Split LED Colors",
+        "func": "var leds=msg.payload.d.leds\n\nmsgB={'payload':leds%256}\nmsgG={'payload':(Math.round(leds/0x100))%256}\nmsgR={'payload':(Math.round(leds/0x10000))%256}\nmsgW={'payload':(Math.round(leds/0x1000000))%256}\n\nreturn [msgR,msgG,msgB,msgW]",
+        "outputs": 4,
+        "noerr": 0,
+        "x": 332.0999755859375,
+        "y": 837.6000032424927,
+        "wires": [
+            [
+                "bd5796c6.fecee",
+                "d4a26d57.fb30d8",
+                "edbec411.f2eb5"
+            ],
+            [
+                "c0e75369.758348",
+                "d4a26d57.fb30d8",
+                "a022f44b.ca407"
+            ],
+            [
+                "76853ab7.b578ac",
+                "d4a26d57.fb30d8",
+                "aaa31b64.5c13a8"
+            ],
+            [
+                "866c25a1.04ba88",
+                "d4a26d57.fb30d8",
+                "2dd8fc98.14bf9c"
+            ]
+        ]
+    },
+    {
+        "id": "bd5796c6.fecee",
+        "type": "ui_text",
+        "z": "35c4eaef.777e7e",
+        "group": "63e116cf.8f0778",
+        "order": 10,
+        "width": "2",
+        "height": "1",
+        "name": "",
+        "label": "R",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "x": 568.1000099182129,
+        "y": 812.8000154495239,
+        "wires": []
+    },
+    {
+        "id": "866c25a1.04ba88",
+        "type": "ui_text",
+        "z": "35c4eaef.777e7e",
+        "group": "63e116cf.8f0778",
+        "order": 12,
+        "width": "2",
+        "height": "1",
+        "name": "",
+        "label": "W",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "x": 542.9999809265137,
+        "y": 952.000002861023,
+        "wires": []
+    },
+    {
+        "id": "76853ab7.b578ac",
+        "type": "ui_text",
+        "z": "35c4eaef.777e7e",
+        "group": "63e116cf.8f0778",
+        "order": 11,
+        "width": "2",
+        "height": "1",
+        "name": "",
+        "label": "B",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "x": 550.9999809265137,
+        "y": 912.000002861023,
+        "wires": []
+    },
+    {
+        "id": "c0e75369.758348",
+        "type": "ui_text",
+        "z": "35c4eaef.777e7e",
+        "group": "63e116cf.8f0778",
+        "order": 9,
+        "width": "2",
+        "height": "1",
+        "name": "",
+        "label": "G",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "x": 552.9999732971191,
+        "y": 864.999997138977,
+        "wires": []
+    },
+    {
+        "id": "edbec411.f2eb5",
+        "type": "ui_gauge",
+        "z": "35c4eaef.777e7e",
+        "name": "",
+        "group": "63e116cf.8f0778",
+        "order": 5,
+        "width": "2",
+        "height": "1",
+        "gtype": "gage",
+        "title": "R",
+        "label": "units",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "255",
+        "colors": [
+            "#ffffff",
+            "#ff0000",
+            "#ff0000"
+        ],
+        "seg1": "1",
+        "seg2": "",
+        "x": 743.1000328063965,
+        "y": 826.80002784729,
+        "wires": []
+    },
+    {
+        "id": "a022f44b.ca407",
+        "type": "ui_gauge",
+        "z": "35c4eaef.777e7e",
+        "name": "",
+        "group": "63e116cf.8f0778",
+        "order": 6,
+        "width": "2",
+        "height": "1",
+        "gtype": "gage",
+        "title": "G",
+        "label": "units",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "255",
+        "colors": [
+            "#ffffff",
+            "#00ff00",
+            "#00ff00"
+        ],
+        "seg1": "1",
+        "seg2": "",
+        "x": 734.9999809265137,
+        "y": 868.000002861023,
+        "wires": []
+    },
+    {
+        "id": "aaa31b64.5c13a8",
+        "type": "ui_gauge",
+        "z": "35c4eaef.777e7e",
+        "name": "",
+        "group": "63e116cf.8f0778",
+        "order": 7,
+        "width": "2",
+        "height": "1",
+        "gtype": "gage",
+        "title": "B",
+        "label": "units",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "255",
+        "colors": [
+            "#ffffff",
+            "#0000ff",
+            "#0000ff"
+        ],
+        "seg1": "1",
+        "seg2": "",
+        "x": 734.9999809265137,
+        "y": 908.000002861023,
+        "wires": []
+    },
+    {
+        "id": "2dd8fc98.14bf9c",
+        "type": "ui_gauge",
+        "z": "35c4eaef.777e7e",
+        "name": "",
+        "group": "63e116cf.8f0778",
+        "order": 8,
+        "width": "2",
+        "height": "1",
+        "gtype": "gage",
+        "title": "W",
+        "label": "units",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "255",
+        "colors": [
+            "#ffffff",
+            "#c0c0c0",
+            "#000000"
+        ],
+        "seg1": "127",
+        "seg2": "",
+        "x": 734.9999809265137,
+        "y": 945.0000038146973,
+        "wires": []
+    },
+    {
+        "id": "23258853.87175",
+        "type": "ui_group",
+        "z": "",
+        "name": "Set Light",
+        "tab": "c1e38a87.00c1b8",
+        "order": 1,
+        "disp": true,
+        "width": "3",
+        "collapse": false
+    },
+    {
+        "id": "63e116cf.8f0778",
+        "type": "ui_group",
+        "z": "",
+        "name": "Light Sensors",
+        "tab": "c1e38a87.00c1b8",
+        "order": 2,
+        "disp": true,
+        "width": "8",
+        "collapse": false
+    },
+    {
+        "id": "c1e38a87.00c1b8",
+        "type": "ui_tab",
+        "z": "",
+        "name": "RaspiLamp",
+        "icon": "dashboard"
+    }
+]
