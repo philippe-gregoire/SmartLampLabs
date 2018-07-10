@@ -293,7 +293,7 @@ Note: the historical data can be accessed from Node-RED using a Cloudant node an
 
 # 5. Configuring the Raspberry Pi as a gateway
 In the first section of the lab, we have configured the RaspBerryPi as a single Device.   
-It could be configured as a Gateway, which would then 
+It could be configured as a Gateway, which would then send sensor data on behalf of devices.
 
 You can optionally do this now, the steps would be:
 * Create a new Gateway type, e.g. `RaspiGateway`
