@@ -28,9 +28,9 @@ Click on Visual Recognition. On the next screen, give a unique name to your serv
 
 ![1524074023232](images_Lab6/1524074023232.png)
 
-You can test the Visual Recognition service by clicking on `Visual Recognition Tool (Beta)` button.
+You can test the Visual Recognition service by clicking on `Launch tool` button.
 
-![1524074250067](images_Lab6/1524074250067.png)
+![1531118889959](images_Lab6/1531118889959.png)
 
 Click `Continue` on the next screen (it also create an instance of Watson Studio if not already done) to manage custom models) : 
 
@@ -90,19 +90,29 @@ Next step of the flow is to take a picture with the `camerapi` node available in
 
 ![1524142797496](images_Lab6/1524142797496.png) - ![1524203620037](images_Lab6/1524203620037.png)
 
-The next node is the `visual recognition` node found inthe `IBM Watson` drawer. To identify which IBM Cloud Visual Recognition service, you need to put in the API Key of the service you have created before.
+The next node is the `visual recognition` node found in the `IBM Watson` drawer. To identify which IBM Cloud Visual Recognition service, you need to put in the API Key of the service you have created before.
 
-![1524142903867](images_Lab6/1524142903867.png) - ![1524204223018](images_Lab6/1524204223018.png)
+![1524142903867](images_Lab6/1524142903867.png) - ![1531124965381](images_Lab6/1531124965381.png)
 
-To find the API Key, go to your IBM Cloud Dashboard, https://console.bluemix.net/dashboard/apps/, and click on the visual recognition service, select Service credentials menu on the left, and then click on the little arrow near `View credentials` to find your API Key to copy and paste to the API Key field of the properties of the visual recognitio node. 
+Make sure that  "Detect Faces"  for the `Detect field`, and the "https://gateway.watsonplatform.net/visual-recognition/api" for the `Service Endpoint`. For your information, the other Service Endpoint option is for backward compatibility purpose (for older instances of Watson Visual Recognition).
 
-For information , you can create several credentials on the same service for different applications.
+To find the requested API Key, go to your IBM Cloud Dashboard, https://console.bluemix.net/dashboard/apps/, and click on the visual recognition service.
 
-![1524204396683](images_Lab6/1524204396683.png)![1524204493182](images_Lab6/1524204493182.png)![1524204558854](images_Lab6/1524204558854.png)
+Click on![1531124736810](images_Lab6/1531124736810.png)(`Show`) link to display and copy the `apikey` field.
+
+![1531125245994](images_Lab6/1531125245994.png)
+
+Paste the copied `apikey` value in the `API Key` field of the Visual Recognition node properties.
+
+For information , you can create several credentials on the same service for different applications in the `Service Credentials` part of the service.
+
+![1524204493182](images_Lab6/1524204493182.png)
 
 Now we need to process the results of the call to the Watson Visual Recognition service. The data returned by the API call are available in `msg.result`.  For your information, use a `debug` node to discover the structure of the returned `msg.result` JSON object.
 
 We use the `switch` node in the `function` drawer to check the number of faces detected by Visual Recognition. If the number of faces is not null, we want to turn the light on to green. Otherwise, we want to turn it on to red. 
+
+The `Property` to test is : `msg.result.images[0].faces.length`
 
 ![1524142950169](images_Lab6/1524142950169.png) - ![1524204876596](images_Lab6/1524204876596.png)
 
