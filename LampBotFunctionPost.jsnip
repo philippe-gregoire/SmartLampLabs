@@ -1,1 +1,6 @@
-C:/IIC/Project 1/BoxSync/PastSessions/Arrow - Budapest Deliverables/Technical Track - Arrow Budapest/LampBotFunctionPost.jsnip
+msg.mydata.messageout = msg.payload;
+
+msg.payload = {};
+msg.payload.botresponse = msg.mydata;
+
+return msg;

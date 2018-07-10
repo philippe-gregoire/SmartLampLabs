@@ -1,1 +1,98 @@
-C:/IIC/Project 1/BoxSync/PastSessions/Arrow - Budapest Deliverables/Technical Track - Arrow Budapest/LampBotUIPage.html
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Lamp Bot</title>
+	<link rel="stylesheet" type="text/css"
+        href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+  </head>
+  <body>
+
+    <div class="container">
+      <div id="no-script" class="bg-info">
+        This application needs JavaScript enabled in your browser!
+      </div>
+      <div id="id_contextdump"></div>
+
+      <h1>Interactive Lamp BOT</h1>
+      <div id=id_botchathistory style="max-width:500px;margin:auto;border: 3px solid orange"></div>
+      <div>
+            <label for="id_chattext">Your Input: </label>
+            <input type="text" name="chattext" id="id_chattext">
+            <br/><br/>
+	      <button type=submit onclick="javascript:onChatClick()">Ask</button>
+	  </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <script type="text/javascript">
+      $(document).ready(function() {
+          javascriptCheck();
+          	$('#id_contextdump').hide();
+          $("#id_chattext").keyup(function(event) {
+            if(event.keyCode == 13) {
+                onChatClick();
+            }
+          });
+      });
+
+      // if javascript is enabled on the browser then can
+      // remove the warning message
+      function javascriptCheck() {
+        $('#no-script').remove();
+      }
+
+      function createNewDiv(who, message,align,color) {
+        var txt = who + ' : ' + message;
+        return $('<div style="text-align:'+align+';color: '+color+'"></div>').text(txt);
+      }
+
+      function chat(person, txt,align,color) {
+        $('#id_botchathistory').append(createNewDiv(person, txt,align,color));
+      }    
+
+      function processOK(response) {
+        console.log(response);
+        console.log(response.botresponse.messageout);
+        console.log(response.botresponse.messageout.output.text);
+        console.log(response.botresponse.messageout.context);
+        chat('Lamp', response.botresponse.messageout.output.text,'right','blue');
+        $('#id_contextdump').data('convContext', response.botresponse.messageout.context);
+      }
+
+      function processNotOK() {
+        chat('Error', 'Error whilst attempting to talk to Bot','center','red');
+      }
+
+      function invokeAjax(message) {
+        var contextdata = $('#id_contextdump').data('convContext');
+        console.log('checking stashed context data');
+        console.log(contextdata);
+
+        //var ajaxData = "msgdata=" + message;
+        var ajaxData = {};
+        ajaxData.msgdata = message;
+        if (contextdata) {
+          ajaxData.context = contextdata;    
+        }
+
+        $.ajax({
+          type: 'POST',
+          url: 'botchat',
+          data: ajaxData,
+          success: processOK,
+          error: processNotOK
+        });
+      }
+
+      // User has entered some text.
+      function onChatClick() {
+        var txt = $('#id_chattext').val();
+        chat('Human', txt,'left','green');
+        invokeAjax(txt);
+      }
+    </script>
+  </body>
+</html>
