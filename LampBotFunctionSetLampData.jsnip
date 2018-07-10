@@ -1,1 +1,13 @@
-C:/IIC/Project 1/BoxSync/PastSessions/Arrow - Budapest Deliverables/Technical Track - Arrow Budapest/LampBotFunctionSetLampData.jsnip
+msg.mydata = {};
+msg.mydata.messagein = msg.req.body.msgdata;
+msg.payload = msg.mydata.messagein;
+
+msg.params={};
+if(msg.req.body.context) {
+    msg.params.context = msg.req.body.context;
+} else {
+    msg.params.context={};
+}
+msg.params.context.d = global.get("lampdata").d;
+
+return msg;
