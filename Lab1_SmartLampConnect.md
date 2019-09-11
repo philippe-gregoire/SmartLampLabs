@@ -31,8 +31,8 @@ The two first lab exercises are broken down into 6 sections:
   Lab 1.2. Create an account on the IBM Cloud Watson IoT platform.
   Lab 1.3. Connecting the SmartLamp to the IoT platform, defining and cataloging devices
   Lab 2.1. Create a Watson IoT dashboard to view the data.
-  Lab 2.2. Creation of an interactive dashboard to control the lighting of the lamp.
-  Lab 2.3. Creation of an automatic lamp control mechanism.
+  Lab 2.2. Complement the dashboard with Actions to control the lighting of the lamp.
+  Lab 2.3. Implement an automatic lamp control mechanism.
 
 # 1. Getting started and connectivity
 For the exercise, the lamps are connected on the internet via the Raspberry Pi.
@@ -58,10 +58,13 @@ The different tabs are programs (flows) that implement a functionality of the ga
 
 We will focus on the `Watson IoT` tab which is in charge of transmitting the sensor data to the Cloud: ![](images_Lab1/markdown-img-paste-20180407154409764.png)
 
+* The grey link node ![](images_Lab1/20190911_0739c503.png) is a connection to the `Arduino Streetlight` flow where data from the lamp is collected from the serial port.
+  >Note that it may happen that the baud rate of the serial link between the Arduino and the RaspBerryPi is set incorrectly, in which case you will need to change it to **57600**
+
 * Locate the `event` node at the top of the diagram, and double-click on it to open its parameters: ![](images_Lab1/markdown-img-paste-20180407154753749.png)
 
 * If not already done, select `Device` and `Quickstart`. An identifier must be filled in the `Quickstart Id` field. This identifier is used to recognize the different devices connecting to the Watson IoT platform on IBM Cloud.
-NOTE: ___The QuickStart identifier must be unique___, so you may want to select e.g. `000000.XXXXXX` where `X` is the number of your Raspberry Pi as identifier.
+> NOTE: ___The QuickStart identifier must be unique___, so you may want to select e.g. `000000.XXXXXX` where `X` is the number of your Raspberry Pi as identifier.
 
 * Click on `Done` and once back on the 'flow', on the `Deploy` button at the top right: ![](images_Lab1/markdown-img-paste-20180407155550960.png)
 
@@ -87,7 +90,8 @@ The Raspberry Pi has been set to send a lighting sequence to the lamp. We will f
 * Return to Raspberry Pi's Node-RED web interface, and navigate to the tab  `Arduino Streetlight`: ![](images_Lab1/markdown-img-paste-2018040717251711.png)
 * The sequence at the bottom of this flow makes it possible to send a command to the lamp. The lamp includes codes to light its various colors, R for Red, B for Blue, G for Green, 0 to 9 for various intensities of White, etc. Click on the pellet to the left of the button `RGBWOY`: 
 * The lamp will light in sequence with the colors Red, Green, Blue, White, Orange, Yellow
-* By double-clicking on the RGBWOY node, you can modify the parameters and the sequence that will be sent, for example `W9753RGB0`: ![](images_Lab1/markdown-img-paste-20180407173321430.png) N'oubliez pas de validate the changes by clicking on the button `Deploy` ![](images_Lab1/markdown-img-paste-20180407173300420.png)
+* By double-clicking on the RGBWOY node, you can modify the parameters and the sequence that will be sent, for example `W9753RGB0`: ![](images_Lab1/markdown-img-paste-20180407173321430.png) Don't forget to validate the changes by clicking on the `Deploy` button ![](images_Lab1/markdown-img-paste-20180407173300420.png)
+  => You will see the lamp's LEDs quickly sequence through the RGB sequence encoded in the string.
 
 # 2. IBM Watson & Cloud account creation Introduction
 For the moment, we can only plot a few data points on a single sensor at a time, we will now set up a more specific system on IBM Cloud and Watson IoT allowing multiple values to be taken into account simultaneously and to compose a display more A privileged.
@@ -95,39 +99,22 @@ For the moment, we can only plot a few data points on a single sensor at a time,
 To do this, you must first register on the IBM cloud.
 
 ## Create an IBM Cloud Account
-We will use the shortcuts provided in the screen `QuickStart`.
-
-* Go back to https://quickstart.internetofthings.ibmcloud.com/#/device/27d4e32d.145689/sensor/ and click on the 'CREATE APP' button: ![](images_Lab1/markdown-img-paste-20180407161516446.png)
-
-* Click on the button `Sign up to Create` on the bottom right: ![](images_Lab1/markdown-img-paste-20180407161631662.png)
-
-* On the next screen, enter your email (or alias), Last Name, First Name and Password.
-
-* IMPORTANT : Specify `United States` as country to be able to use beta features of IBM Cloud.
-  ![1524140589073](images_Lab1/1524140589073.png)
-
-* Then click on  `Create Account` ![](images_Lab1/markdown-img-paste-20180407161910216.png)
-
-* ![](images_Lab1/markdown-img-paste-20180407162020834.png)
+If you don't already have an IBM Cloud account, you can use the `[SIGN UP]` shortcuts provided in the `QuickStart` screen at https://quickstart.internetofthings.ibmcloud.com/#/device/000000.000000/sensor/, and follow instructions.
+If you already have an IBMCloud account, you can skip to the next section.
 
 * A confirmation email should be sent shortly, entitled `Action required: Confirm your IBM Cloud account`. Follow the instructions in this message to validate your account on IBM Cloud.
-
 * After having confirmed the creation of the account, ![](images_Lab1/markdown-img-paste-20180407182743424.png)
-  proceed to login : ![](images_Lab1/1523881637675.png)
+   proceed to login : ![](images_Lab1/1523881637675.png)
 
 ## Creating a Watson IoT platform instance
-From the home screen ![](images_Lab1/1523881916245.png)
-Click on ![](images_Lab1/1523881735519.png)
+Go to the QuickStart page again at https://quickstart.internetofthings.ibmcloud.com/#/device/000000.000000/sensor/ and click on the `[CREATE APP]` button: ![](images_Lab1/markdown-img-paste-20180407161516446.png)
 
-In the filter field, type `iot`: ![](images_Lab1/markdown-img-paste-20180407184023734.png)
-Then in the `Boilerplate`:
-![](images_Lab1/1523881953304.png)
+You are taken to the *Create a Cloud Foundry App* screen ![](images_Lab1/20190911_b75c5d87.png)
+Scroll down to reveal the *App name:* entry field, and choose a unique name, for example `WIoTWorkshop2019Raspi`*`N`*, where *`N`* is your raspi's number. Keep the default for the other fields ![](images_Lab1/20190911_ad4f876d.png)
 
-Choose a unique name, for example `guest1-raspi`, keep the default for the other fields![](images_Lab1/1523882082292.png)
+Then click on  `Create` ![](images_Lab1/1523882967106.png) and wait for the platform to start.
 
-the clck on  `Create` ![](images_Lab1/1523882967106.png)
-
-Then wait for the platform to start
+> NOTE that this simplified procedure will work only if you do not already have an instance of the services to be created (Cloudant and IoTPlatform)
 
 # 3. Connecting the SmartLamp to the Cloud Infrastructure
 We will now connect the SmartLamp to the Watson IoT platform we created in the previous step.
@@ -174,10 +161,10 @@ Here we will only have one system, but in a real deployment, there may be many d
 
 * You can optionnaly add information on the  `Device Information ` tab and validate by pushing the `Done` on the bottom right ![](images_Lab1/1523888409079.png)
 
-* On the next screnn, select `Register Divces`![](images_Lab1/1523888569717.png), then enter `RaspiLampX` as name where  `X` is the number of your lamp.![](images_Lab1/1523888653416.png), then push the `Next` button.
+* On the next screnn, select `Register Divces`![](images_Lab1/1523888569717.png), then enter `RaspiLamp`*`X`* as name where *`X`* is the number of your lamp.![](images_Lab1/1523888653416.png), then push the `Next` button.
 
-* Click`Next` until  `Security` tab, in the  `Authentication Token`, enter a value that you can easily remember such as the same name as your lamp, i.e. `RaspiLampX`: ![](images_Lab1/1523888776551.png) 
-  This token is in fact the password of the terminal and will be used to connect it to the platform in a secure way.
+* Click`Next` until  `Security` tab, in the  `Authentication Token`, enter a value that you can easily remember such as the same name as your lamp, i.e. `RaspiLamp`*`X`*: ![](images_Lab1/1523888776551.png) 
+  This token is in fact the password of the device and will be used to connect it to the platform in a secure way.
 
 * Click`Next`until the last page and then `Done` ![1523888409079](images_Lab1/1523888409079.png) 
   Please take note of your Organization ID :
@@ -224,11 +211,11 @@ then click on `Done`
 
   the line of the lamp must have a green dot on the left: ![](images_Lab1/markdown-img-paste-20180409000450612.png)
 
-* Selecting the `RaspiLampX` line the  `Recent Events` tab, we see the data arrive:
+* Selecting the `RaspiLampX` line the  `Recent Events` tab, we see the data been delivered to Watson IoT Platform on the IBMCloud:
 * ![](images_Lab1/markdown-img-paste-20180409000622539.png)
 
 ### Definition of a device data type
-Now that the sensor is plugged in, we will be able to introspect it to know its data format
+Now that the sensor is plugged in, we will be able to introspect it to define its data format
 
 * Return to the  `Devices` section, then select the type RaspiLamp and finally the tab `Interface` ![](images_Lab1/1523998594979.png)
 
@@ -238,59 +225,6 @@ Now that the sensor is plugged in, we will be able to introspect it to know its 
 
 * Finaly the `Add` button: ![](images_Lab1/markdown-img-paste-20180409001912906.png), and then validate by pushing `Done` ![](images_Lab1/markdown-img-paste-20180409002009572.png)
 
-# 4. Configuring historical Data Storage
-Watson IoT Platform has a built-in mechanism to automatically store the incoming device data to No-SQL Storage in a Cloudant DataBase.
-
-A Cloudant DataBase has been setup as part of the IoT Boilerplate creation. It is used to store the Node-RED configuration and flows.   
-We will now configure Watson IoT platform to also store the device payloads.
-
-We enable this feature as early as possible in the day so that we will have enough collected data for use in the Analytics Labs later on.
-
-Switch back to the Watson IoT platform management interface
-* Select the `Extensions` tab in the left-side menu: ![](images_Lab1/markdown-img-paste-20180609212846241.png)
-* Click `[Setup]` button in the Historical Data Storage pane: ![](images_Lab1/markdown-img-paste-20180609212938862.png)
-* Select the existing Cloudant service instance ![](images_Lab1/markdown-img-paste-20180609213257389.png)
-* On the next panel, you can select the Bucket Interval, which determines how often the name of the storage database is rolled over. For this lab you may choose any one of the options, e.g. `Month`. You can leave the database name to `default`, then click `[Done]`:  ![](images_Lab1/markdown-img-paste-20180609213546855.png)
-
-* Note: as mentioned, 'When you click Done we'll open a new window to authorize connecting the Cloudant service to your Watson IoT Platform service.', so the connection to Cloudant is validated in a Pop-Up window, make sure you display and validate this pop-up. If you have popup disabled in your browser, it may show up elsewhere on the browser page, e.g. for Chrome in the top bar as ![](images_Lab1/markdown-img-paste-20180609213802882.png)   
-Make sure you validate the pop-up!:
-![](images_Lab1/markdown-img-paste-20180609213909366.png), you should go through this window at some point: ![](images_Lab1/markdown-img-paste-20180609214013698.png)
-* Check that data is logged into the Cloudant DB
-* Confirm the connection with the `[Confirm]` button, and verify that the status is now confirmed, such as: ![](images_Lab1/markdown-img-paste-20180609214219273.png)
-
-Since the device is sending data, storing into Cloudant should start immediatelly. We can verify this by looking into the Cloudant Database:
-* Go back to the IBM Cloud dashboard: ![](images_Lab1/markdown-img-paste-20180609214610396.png)
-* Locate the Cloudant service and select it, then click the `[Launch]` button ![](images_Lab1/markdown-img-paste-20180609214824409.png)
-* You are taken to the Cloudant management interface. Select the databases icon ![](images_Lab1/markdown-img-paste-20180609215236491.png). You should be seeing a list of databases, of which the Node-RED storage, and your device storage bucket DB:
-![](images_Lab1/markdown-img-paste-20180609215426613.png)
-* Select the database bucket for the current month, you will see your documents, one row for each sensor value. Select one of the rows to see the values.
-* We will add a search index to yield sensor data directly. On the `search` index, select the menu and `clone`: ![](images_Lab1/markdown-img-paste-20180609222319654.png)
-* use `searchdata` as name: ![](images_Lab1/markdown-img-paste-20180609222405554.png)
-* Edit the newly created cone index: ![](images_Lab1/markdown-img-paste-20180609222438284.png)
-* Change the function to return only `sort`, `deviceId`, `timestamp` and then `ldr`, `solar`, `ts` renamed to `dts`, `temp`, `rawTemp`, `humidity`, `temperature`, `pressure`:
-``` javascript
-function (doc) {
-  if (doc.deviceType && doc.deviceId && doc.eventType && doc.timestamp && doc.data) {
-    index("sort", Math.random(), {"store": true});
-    index("deviceId", doc.deviceId, {"store": true});
-    index("timestamp", doc.timestamp, {"store": true});
-    index("ldr", doc.data.d.ldr, {"store": true, "facet":true});
-    index("solar", doc.data.d.solar, {"store": true, "facet":true});
-    index("dts", doc.data.d.ts, {"store": true});
-    index("temp", doc.data.d.temp, {"store": true});
-    index("rawTemp", doc.data.d.rawTemp, {"store": true});
-    index("temperature", doc.data.d.temperature, {"store": true, "facet":true});
-    index("humidity", doc.data.d.humidity, {"store": true, "facet":true});
-    index("pressure", doc.data.d.pressure, {"store": true, "facet":true});
-  }
-}
-```
-Click ![](images_Lab1/markdown-img-paste-20180609223216201.png) to store.
-* Test the index by entering the `*:*` special query on your new `searchindex` index.
-* You can also enter a query such as: `solar:234` or range: `ldr:[16 TO 54]`
-
-Note: the historical data can be accessed from Node-RED using a Cloudant node and the search index.
-
 # 5. Configuring the Raspberry Pi as a gateway
 In the first section of the lab, we have configured the RaspBerryPi as a single Device.   
 It could be configured as a Gateway, which would then send sensor data on behalf of devices.
@@ -298,7 +232,7 @@ It could be configured as a Gateway, which would then send sensor data on behalf
 You can optionally do this now, the steps would be:
 * Create a new Gateway type, e.g. `RaspiGateway`
 * Create a `RaspiGatewayX` instance (use the deviceId as password)
-* Modify the Node-RED flow on the RaspBerryPi so that the device connection type is now Gateway. Modify both the WIoTP in and out nodes.
+* Modify the Node-RED flow on the RaspBerryPi so that the device connection type is now ***Gateway***. Modify both the WIoTP in and out nodes.
 * The gateway will now send the data on behalf of the device.
 
 # Conclusion
