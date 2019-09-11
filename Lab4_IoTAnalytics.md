@@ -7,19 +7,17 @@ Note that in this sharing case, each connection to the platform shold use its ow
 
 ## [A] Create an IBM Watson Studio instance
 IBM Watson Studio operates within the IBM Cloud environment, adding Data Science capabilities and leveraging the PaaS services.
+> You can skip this section if you already have a Watson Studio service defined and go to Section [B]
 
 * Switch to your IBM Cloud dashboard at https://cloud.ibm.com/
 * Select `Create Resource` button * ![](images_Lab4/markdown-img-paste-20180416173737437.png)
 * Type `watson studio` in the filter area ![](images_Lab4/markdown-img-paste-20180416173919927.png)
 * Select the `Watson Studio` tab ![](images_Lab4/markdown-img-paste-20180416174002792.png)
-*********
-* Make sure you are in the `US South` region
-*********
 ![](assets/markdown-img-paste-20180416182740580.png)
 * The Lite plan should be selected by default, you may change the service instance name if youwish, then click `Create` ![](images_Lab4/markdown-img-paste-20180416174133817.png)
-* On the next page, select `Get Started` ![](a
+* On the next page, select `Get Started` ![](images_Lab4/markdown-img-paste-20180416174228637.png)
 * Accept the default organization and space ![](images_Lab4/markdown-img-paste-20180416174319435.png)
-ssets/markdown-img-paste-20180416174228637.png). Lite accounts can have only one organization anyhow. Click `Continue`
+. Lite accounts can have only one organization anyhow. Click `Continue`
 * Once the account is created, follow with `Get Started` button.
 * A set of welcome wizards will show you around some features of the Watson Studio environment.
 
@@ -28,15 +26,13 @@ Watson Studio is built around the concept of `Project`, which is a collection of
 
 We will now create a Project to support the operations required for our IoT Lamp data analysis.
 
-* From the Watson Studio landing page, select the `New Project` icon ![](images_Lab4/markdown-img-paste-2018041617493167.png)
-
-* Although we will not use all of the features, for the sake of simplicity, we will use a `Complete Project`, configured will all the tools enabled, so select `Complete` and click `OK`: ![](images_Lab4/markdown-img-paste-20180416175118533.png)
+* From the Watson Studio landing page, select the `Create a Project` tile ![](images_Lab4/20190911_e8466655.png)
+* We will use create a regular empty project ![](images_Lab4/20190911_1b21a4a3.png)
 
 * Select any name of your choice for the project, e.g. `RaspiLamp`. ![](images_Lab4/markdown-img-paste-20180416183005788.png)
 
-* On the right side, make sure the storage service is selected as `IBM Cloud Object Storage`, and click the `Add` label ![](images_Lab4/markdown-img-paste-20180416175322786.png)
-
-* We will create an instance of Cloud Object Storage at this stage. Select the Lite plan and `Create` button: ![](images_Lab4/markdown-img-paste-20180416175455144.png)
+* On the right side, make sure a storage service is selected ![](images_Lab4/20190911_e7565e66.png)
+* If this is your first project, you will need to create an instance of Cloud Object Storage at this stage. Select the Lite plan and `Create` button: ![](images_Lab4/markdown-img-paste-20180416175455144.png)
 
 * Accept the default naming on the `Confirm Creation` panel, and click `Confirm`: ![](images_Lab4/markdown-img-paste-20180416175556306.png)
 
@@ -49,12 +45,12 @@ We will now create a Project to support the operations required for our IoT Lamp
 ### [C.1] Creating the flow artifact
 We will now create a streaming data flow which will collect data sent by the Lamp through Watson IoT Platform and store it in Cloud Object Storage
 
-* Switch to the Assets tab in your project, and Navigate to the `Streams flows` section. Select the `New streams flow` button: ![](images_Lab4/markdown-img-paste-20180416185155511.png)
+* From the `[(+)Add to project]` button, select the Streams flow tile ![](images_Lab4/20190911_493d3270.png)
 * Type a name, e.g. `RaspiLampFlow`
 
 * Create a streaming analytics service in IBM Cloud PaaS by clicking on `Associate an IBM Streaming Analytics instance` ![](images_Lab4/markdown-img-paste-20180416190210998.png)
 
-* Select the `Lite` plan (towards the bottomof the list) ![](images_Lab4/markdown-img-paste-20180418003151153.png) and click `Create`
+* Select the `Lite` plan ![](images_Lab4/20190911_af04f5eb.png) and click `Create`
 
 * On the confirm screen, accept the defaults and `Confirm` 
 
@@ -107,7 +103,7 @@ We are now ready to actually implement the flow.
 
 * You may expand ![](images_Lab4/markdown-img-paste-20180417220643300.png) to have a look at the incoming data.
 
-* Then click on `Save *` and then  `Close` to accept it: ![](images_Lab4/markdown-img-paste-20180417220412430.png)
+* Then click on `Apply` and then  `Close` to accept it: ![](images_Lab4/20190912_e97ae3b1.png)
 
 * Back to the canvas, drag and drop a `Cloud Object Storage` node on the canvas, from the TARGETS section: ![](images_Lab4/markdown-img-paste-20180417220851219.png)
 
@@ -116,8 +112,8 @@ We are now ready to actually implement the flow.
 
 * You may leave the default connection credentials there, then click `Create`: ![](images_Lab4/markdown-img-paste-20180417221244559.png)
 
-* We will now rename the `ts` field to `dts` and add a new `ts` field that holds the current timestamp. From the `PROCESSING AND ANALYTICS` drawer, drag&drop a `Code` node and wire it to the two WIOT input and COS output nodes: ![](images_Lab4/markdown-img-paste-2018041722242945.png)
-* Lastly, modify the details of the file creation policy. We will generate CSV files with the write timestamp in the name, generated in the bucket we created earlier. Enter a `File path` of __`/raspilamp-20180420-x/lampdata_%TIME.csv`__. Then keep the default CSV file format, check the `Column header row` so that file contents keeps being identified, and enter a file creation policy based on time, every 120 seconds: ![](images_Lab4/markdown-img-paste-2018041800271619.png)
+* We will now rename the `ts` field to `dts` and add a new `ts` field that holds the current timestamp. From the `PROCESSING AND ANALYTICS` drawer (**NOT** the `TARGETS` drawer), drag&drop a `Code` node and wire it between the WIOT input and COS output nodes: ![](images_Lab4/markdown-img-paste-2018041722242945.png)
+* Lastly, modify the details of the file creation policy. We will generate CSV files with the write timestamp in the name, generated in the bucket we created earlier. Enter a `File path` of __`/raspilamp-20190912-x/lampdata_%TIME.csv`__. Then keep the default CSV file format, check the `Column header row` so that file contents keeps being identified, and enter a file creation policy based on time, every 120 seconds: ![](images_Lab4/20190912_0c43de89.png)
 
 * Select the `Code` node and edit the output schema ![](images_Lab4/markdown-img-paste-20180417222543314.png), click `Add Attribute` ![](images_Lab4/markdown-img-paste-20180417222610200.png) then `use Incoming Schema`, and then add an attribute named `dts` of type `Number`, such as: ![](images_Lab4/markdown-img-paste-20180417222900197.png), and click `Save *`
 * Now edit the code so as to modify the `process` method as such:
