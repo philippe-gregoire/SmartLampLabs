@@ -79,7 +79,7 @@ NOTE: if you are sharing access to a lamp, each connection should generate its o
 
 * This opens the COS instance management panel in a new tab, select `Manage` from the menu on the right, then `Create Bucket`; ![](images_Lab4/markdown-img-paste-20180417212757123.png)
 
-* In COS, a bucket can be assimilated to a root-level directory. Those names need to be globally unique, so we will use a name made up of a prefix, the currenyt date and a suffix that matches your lamp's number, name the new bucket e.g. `raspilamp-20180420-x` where `x` is you lamp number, and keep the other defaults: ![](images_Lab4/markdown-img-paste-20180417214131824.png)
+* In COS, a bucket can be assimilated to a root-level directory. Those names need to be globally unique, so we will use a name made up of a prefix, the currenyt date and a suffix that matches your lamp's number, name the new bucket e.g. `raspilamp-20190912-x` where `x` is you lamp number, and keep the other defaults: ![](images_Lab4/markdown-img-paste-20180417214131824.png)
 
 * Add credentials for use by our stream. Switch to the `Service credentials` tab and click `New credential`: ![](images_Lab4/markdown-img-paste-20180417214550117.png)
 
@@ -91,7 +91,7 @@ NOTE: if you are sharing access to a lamp, each connection should generate its o
 We are now ready to actually implement the flow.
 
 * Switch back to the browser tab where you have the flow editor opened
-* From the `NODES SOURCES` paletter, drag and drop a Watson ioT node onto the canvas: ![](images_Lab4/markdown-img-paste-20180417215300374.png)
+* From the `NODES SOURCES` palette, drag and drop a Watson ioT node onto the canvas: ![](images_Lab4/markdown-img-paste-20180417215300374.png)
 
 * Once dropped, click on `Add Connection`; ![](images_Lab4/markdown-img-paste-20180417215355277.png)
 
@@ -128,7 +128,8 @@ We are now ready to actually implement the flow.
 * The flow is now ready for deployment. Click on the `Save and Run` icon; ![](images_Lab4/markdown-img-paste-20180417223807412.png)
 You may have a notice to the effect that the streaming service is stopped, acknowlege the start of course: ![](images_Lab4/markdown-img-paste-20180417223947745.png)
 
-* After a while, the flow should be running and will animate when events are coming in: ![](images_Lab4/markdown-img-paste-20180418003752896.png)
+* After a while, the flow should be running and will animate when events are coming in: ![](images_Lab4/20190912_9da67022.png)
+* You may want to switch to your COS service and check that some new filea are beeing created in the bucket: ![](images_Lab4/20190912_0193fd6e.png)
 
 Note that here we just use a code node to do schema manipulation, and since we want to gather enough data in the short time we have, we don't do aggregation, but the primary role of a stream processing flow is to perform data aggregation to reduce the volume.
 
