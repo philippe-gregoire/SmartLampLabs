@@ -46,7 +46,7 @@ We will now create a graphical interface to plot the data of the various sensors
 You can create maps for other sensor values.
 
 # 2. Creating an interactive dashboard with Node-RED
-We will now create a dashboard to act on the lamp. For this we will use Node-RED, but directly out of the Cloud.
+We will now create a dashboard to act on the lamp. For this we will use Node-RED running as a WebApp on the IBMCloud.
 
 ## Starting Node-RED
 * Return to the IBM Cloud Dashboard (https://console.bluemix.net/dashboard/apps)
