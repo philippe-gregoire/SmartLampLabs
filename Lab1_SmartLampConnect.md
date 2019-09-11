@@ -116,6 +116,18 @@ Then click on  `Create` ![](images_Lab1/1523882967106.png) and wait for the plat
 
 > NOTE that this simplified procedure will work only if you do not already have an instance of the services to be created (Cloudant and IoTPlatform)
 
+If those services already exist, you will have to go through a different procedure:
+1. Create a Node-RED Application. From the IBMCloud 'hamburger' menu, select `[Web Apps]` ![](images_Lab1/20190911_b3bbd1a7.png)
+1. Select `[Start from the web]` tile ![](images_Lab1/20190911_258148d3.png).
+1. Type `Node-Red` in the filter and select the NodeRed tile ![](images_Lab1/20190911_8654a9a7.png)
+1. You can change the name from the generated default one 
+1. Scroll down to the Cloudant DB selection and select your existing instance: ![](images_Lab1/20190911_b0a1e0e5.png), then click the `[Create]` button.
+1. On the app details page, select _Connect existing services_ and connect your existing IoT service instance (If you don't have one yet, use  _Create service_ instead).
+1. Select *Configure Continuous Delivery* ![](images_Lab1/20190911_2dd4b1aa.png). Scroll down to the *Deploy to Cloud Foundry* section, select it and confirm the details then click `[Next]` ![](images_Lab1/20190911_0be72531.png)
+1. Confirm toolchain creation, and wait for the app to complete deployment.
+1. Select the `[View toolchain]` button, then the delivery pipeline tile ![](images_Lab1/20190911_6a67d95f.png)
+1. Wait until the toolchain has completed delivery pipeline run, and then access your app URL. 
+
 # 3. Connecting the SmartLamp to the Cloud Infrastructure
 We will now connect the SmartLamp to the Watson IoT platform we created in the previous step.
 
