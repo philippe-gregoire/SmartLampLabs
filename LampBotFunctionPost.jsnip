@@ -1,6 +1,3 @@
-msg.mydata.messageout = msg.payload;
-
-msg.payload = {};
-msg.payload.botresponse = msg.mydata;
+msg.payload = {"botresponse": msg.payload};
 
 return msg;

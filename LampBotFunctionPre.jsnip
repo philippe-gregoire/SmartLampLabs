@@ -1,8 +1,4 @@
-// stash away incoming data
-msg.mydata = {};
-msg.mydata.messagein = msg.req.body.msgdata;
-msg.payload = msg.mydata.messagein;
-
-msg.params = { "context": msg.req.body.context};
-
+// Extract payload
+msg.params = {"session_id": msg.payload.session_id};
+msg.payload = msg.payload.msgdata;
 return msg;

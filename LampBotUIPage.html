@@ -30,7 +30,7 @@
     <script type="text/javascript">
       $(document).ready(function() {
           javascriptCheck();
-          	$('#id_contextdump').hide();
+          //$('#id_contextdump').hide();
           $("#id_chattext").keyup(function(event) {
             if(event.keyCode == 13) {
                 onChatClick();
@@ -55,11 +55,12 @@
 
       function processOK(response) {
         console.log(response);
-        console.log(response.botresponse.messageout);
-        console.log(response.botresponse.messageout.output.text);
-        console.log(response.botresponse.messageout.context);
-        chat('Lamp', response.botresponse.messageout.output.text,'right','blue');
-        $('#id_contextdump').data('convContext', response.botresponse.messageout.context);
+        console.log(response.botresponse.output.generic[0].text);
+        console.log(response.botresponse.context);
+        console.log(response.botresponse.session_id);
+        chat('Lamp', response.botresponse.output.generic[0].text,'right','blue');
+        $('#id_contextdump').data('context', response.botresponse.context);
+        $('#id_contextdump').data('session_id',response.botresponse.session_id);
       }
 
       function processNotOK() {
@@ -67,15 +68,18 @@
       }
 
       function invokeAjax(message) {
-        var contextdata = $('#id_contextdump').data('convContext');
-        console.log('checking stashed context data');
-        console.log(contextdata);
+        var context = $('#id_contextdump').data('context');
+        var session_id = $('#id_contextdump').data('session_id');
+        console.log('checking stashed context');
+        console.log(context);
 
         //var ajaxData = "msgdata=" + message;
-        var ajaxData = {};
-        ajaxData.msgdata = message;
-        if (contextdata) {
-          ajaxData.context = contextdata;    
+        var ajaxData = {"msgdata": message};
+        if (context) {
+          ajaxData.context = context;    
+        }
+        if(session_id) {
+            ajaxData.session_id = session_id;
         }
 
         $.ajax({

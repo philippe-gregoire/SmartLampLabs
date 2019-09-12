@@ -8,7 +8,7 @@ You will learn how to add a conversational interface to the street light applica
 Once the technical layers are in place, Watson Conversation is designed to be modifiable by a power user with business skills rather than I/T personnel. For simplicity you will use Node-RED to build the technical layers, wiring Watson Conversation to actionable entities such as the lamp’s LED and sensors. The dialogue itself will be built using the Conversation building tool provided by IBM Cloud.
 
 ## A.	Setting up the technical layers
-### 1.	Creating and binding the Watson Assistant (formerly Conversation) service
+### 1.	Creating and binding the Watson Assistant service
 To easily use the Watson Assistant service from Node-RED, you will link an instance of the service to the application running Node-RED.
 
 * Navigate back to the IBM Cloud dashboard, and click the Create Resource button: ![](images_Lab5/markdown-img-paste-20180610192845419.png)
@@ -24,24 +24,32 @@ Once restarted, the Conversation service will be available to your Node-RED inst
 
 ### B. Creating a test conversation from the sample
 To get started with implementing a conversation, we will upload a prebuilt sample Conversation which was originally designed to control operations of a car's equipment.
-* Switch back to the `manage` tab of your  Watson Assistant service, and click `[Launch Tool]` ![](images_Lab5/markdown-img-paste-20180610193523945.png)
-* Once on the tool page, select the `Workspaces` tab. Click on the import button ![](images_Lab5/markdown-img-paste-20180612010951257.png)
+* Switch back to the `manage` tab of your  Watson Assistant service, and click `[Launch Watson Assistant]` ![](images_Lab5/20190912_ad14fcf1.png)
+* Once on the tool page, select the `[Create assistant]` button![](images_Lab5/20190912_b66bff0c.png)
+* Give it a name, e.g. `LampAssistant`, and proceed to creation ![](images_Lab5/20190912_43626d44.png)
+* Select the `[Add dialog skill]` button ![](images_Lab5/20190912_e91d0875.png)
+* From the Add Diloag skill page, switch to the Import skill tab ![](images_Lab5/20190912_f806dc72.png) and click `[Chose JSON File]`
+* Pick the `Lab5_Conversation_Car_Dashboard.json` file and click on the `[Import]` button ![](images_Lab5/markdown-img-paste-20180612010951257.png)
 * Select `Lab5_Car_Dashboard.json` to import ![](images_Lab5/markdown-img-paste-20180612011111424.png)
-* Make a note of the WorkspaceID from the view details from the menu icon (top right) ![](images_Lab5/markdown-img-paste-20180612011418693.png)
-![](images_Lab5/markdown-img-paste-20180612011442679.png)
+* Back to the LampAssistant page, open the **Car Dashboard - Sample** dialog
+* Use the Try it button to test the dialog ![](images_Lab5/20190912_d8157b8f.png)
+  * Enter a request such as "Turn on the light" or "Switch off the light"
+  * Check in Manage context ![](images_Lab5/20190912_664ed911.png) that the context variable `$lightonoff` changes state accordingly
 
 ### C. Set up the Web UI interface in Node-RED
 * Switch back to your IBM Cloud Node-RED flow editor page. Create a new flow tab, double-click it to open the settings, and name it LampBot.
 * From the palette, drag in HTTP Input, template and HTTP response nodes (tip: type http at the top of the nodes palette to quickly find the nodes) and wire them together.
 ![](images_Lab5/markdown-img-paste-20180610193818661.png)
-* Open the http input node.  Set the method to GET, type `/lampbot` for the URL, and click Done.
-* Open the template node and check that the selected format is Plain Text. The code for this node does not survive the copy/paste process from this document.  
-Copy it from the file `LampBotUIPage.html` provided by the instructor. Then click Done.
-* This code has been adapted from https://github.com/watson-developer-cloud/Node-RED-labs/tree/master/basic_examples/conversation. It provides a basic Web page as a front end to the chatbot. You may refer to the link for more detailed information about its exact functionality.
+* Open the http input node.  Set the method to GET, type `/lampbot` for the URL, and click Done ![](images_Lab5/20190912_f0862474.png).
+* Open the template node and check that the selected format is Plain Text. Copy the code from the provided `LampBotUIPage.html` file. Then click Done.
+  This code has been adapted from https://github.com/watson-developer-cloud/Node-RED-labs/tree/master/basic_examples/conversation. It provides a basic Web page as a front end to the chatbot. You may refer to the link for more detailed information about its exact functionality.
+* Click on the `[Deploy]` button.
+* Click the assistant's Settings menu ![](images_Lab5/20190912_ff0c92be.png)
+* From the *API Details* tab, make a note of the `Assistant ID` value.
 
 ### D. Create Conversation chat bot flow
-* Create a second flow in the same flow, chaining an HTTP Input node, a function node, a Watson Conversation node, another function node and an HTTP response node as per below.![](images_Lab5/markdown-img-paste-20180610194320171.png)
-* Set the HTTP input node method to POST and its URL to /botchat
+* Create a second flow in the same flow, chaining an HTTP Input node, a function node, a Watson Assistant V2 node, another function node and an HTTP response node as per below ![](images_Lab5/20190912_25043cfb.png)
+* Set the HTTP input node method to POST and its URL to `/botchat`
 * Add the following code to the first function node:
 ``` javascript
 // stash away incoming data
@@ -63,7 +71,7 @@ msg.payload.botresponse = msg.mydata;
 return msg;
 ```
 * This implements a REST service to call the conversation with some context. We will modify it later in order to control the lamp as well. Those interested in more detail can find it in GitHub.
-* Finally, edit the Conversation node. In the Workspace field, enter the WorkspaceID you saved earlier. You may need to generate credentials for the service to enter in the username and password fields.
+* Finally, edit the Assistant V2 node. Enter the Assistant Name and ID that you saved earlier.
 
 ### E. Test the sample conversation from Node-RED
 * Deploy the flow and open a separate tab in your browser pointing to the flow’s UI URL. Since you set the http input node’s URL to /lampbot, you will find the UI at https://streetlamp-xxx.mybluemix.net/lampbot.
