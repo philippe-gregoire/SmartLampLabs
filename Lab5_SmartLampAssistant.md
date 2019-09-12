@@ -84,8 +84,8 @@ return msg;
 * Edit the two link nodes and name them Lamp On and Lamp Off respectively. The Link nodes will carry information from the LampBot flow to this one.	
 * Edit the two Change nodes so that they set the msg.payload to numeric value 9 and 0 respectively: ![](images_Lab5/markdown-img-paste-20180610194811966.png)
 * Deploy the flow.
-* Return to the LampBot flow editor. Add a Switch node and wire it to the output of the Conversation node. We will interpret the value of the Conversation’s lightonoff context parameter to set the lamp value accordingly. 
-* Edit the switch node to add an additional output and trigger one when the value is the on string and the other when the value is the off string. This will create two outputs on the switch node. ![](images_Lab5/markdown-img-paste-20180610194951971.png)
+* Return to the LampBot flow editor. Add a Switch node and wire it to the output of the Assistant V2 node. We will interpret the value of the Conversation’s lightonoff context parameter to set the lamp value accordingly. 
+* Edit the switch node to add an additional output and trigger one when the value is the `on` string and the other when the value is the `off` string. This will create two outputs on the switch node. Select the Property to be a JSONata expression `$lookup(payload.context.skills,"main skill").user_defined.lightonoff`: ![](images_Lab5/20190912_2ecd3ca9.png)
 * Add two link output nodes, wire each one to an output of the switch node, then edit them and select the Lamp On and Lamp Off links from the Street Light Tab: 
 ![](images_Lab5/markdown-img-paste-2018061201374394.png)
 Deploy the flow.
