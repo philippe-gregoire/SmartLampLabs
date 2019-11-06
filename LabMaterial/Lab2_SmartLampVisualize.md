@@ -50,7 +50,7 @@ We will now create a dashboard to act on the lamp. For this we will use Node-RED
 
 ## Starting Node-RED
 * Return to the IBM Cloud Dashboard (https://console.bluemix.net/dashboard/apps)
-* You should have the node-red application running;![](images_Lab2/1524000182212.png) Select it
+* You must have an application running;![](images_Lab2/1524000182212.png)Select it
 * In the  `Routes` menu select the first one : ![](images_Lab2/1524000243666.png)
 * The node-RED setup screen is displayed, click `Next` then![](images_Lab2/markdown-img-paste-20180409003923652.png) forcez la configuration non-sécurisée ![](images_Lab2/markdown-img-paste-20180409004045750.png) ![](images_Lab2/markdown-img-paste-20180409004027446.png)
 * Press `Next` and then `Finish`

@@ -1,0 +1,861 @@
+[
+    {
+        "id": "d03a8c2c.7ec968",
+        "type": "tab",
+        "label": "SenseIP",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "96ad61a5.d12538",
+        "type": "tab",
+        "label": "Arduino Streetlight",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "a67a924a.63657",
+        "type": "tab",
+        "label": "Watson IoT",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "abd054f9.6a7098",
+        "type": "tab",
+        "label": "SenseHat",
+        "disabled": true,
+        "info": ""
+    },
+    {
+        "id": "8a9cf629.bbfde8",
+        "type": "tab",
+        "label": "Raspi Gateway",
+        "disabled": true,
+        "info": ""
+    },
+    {
+        "id": "ef194370.81a618",
+        "type": "serial-port",
+        "z": "",
+        "serialport": "/dev/ttyACM0",
+        "serialbaud": "57600",
+        "databits": "8",
+        "parity": "none",
+        "stopbits": "1",
+        "newline": "\\n",
+        "bin": "false",
+        "out": "char",
+        "addchar": false
+    },
+    {
+        "id": "9a633736.8780e8",
+        "type": "ui_base",
+        "theme": {
+            "name": "theme-light",
+            "lightTheme": {
+                "default": "#0094CE",
+                "baseColor": "#0094CE",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
+                "edited": true,
+                "reset": false
+            },
+            "darkTheme": {
+                "default": "#097479",
+                "baseColor": "#097479",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
+                "edited": false
+            },
+            "customTheme": {
+                "name": "Untitled Theme 1",
+                "default": "#4B7930",
+                "baseColor": "#4B7930",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif"
+            },
+            "themeState": {
+                "base-color": {
+                    "default": "#0094CE",
+                    "value": "#0094CE",
+                    "edited": false
+                },
+                "page-titlebar-backgroundColor": {
+                    "value": "#0094CE",
+                    "edited": false
+                },
+                "page-backgroundColor": {
+                    "value": "#fafafa",
+                    "edited": false
+                },
+                "page-sidebar-backgroundColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "group-textColor": {
+                    "value": "#1bbfff",
+                    "edited": false
+                },
+                "group-borderColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "group-backgroundColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "widget-textColor": {
+                    "value": "#111111",
+                    "edited": false
+                },
+                "widget-backgroundColor": {
+                    "value": "#0094ce",
+                    "edited": false
+                },
+                "widget-borderColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "base-font": {
+                    "value": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif"
+                }
+            }
+        },
+        "site": {
+            "name": "Node-RED Dashboard",
+            "hideToolbar": "false",
+            "allowSwipe": "false",
+            "dateFormat": "DD/MM/YYYY",
+            "sizes": {
+                "sx": 48,
+                "sy": 48,
+                "gx": 6,
+                "gy": 6,
+                "cx": 6,
+                "cy": 6,
+                "px": 0,
+                "py": 0
+            }
+        }
+    },
+    {
+        "id": "59a4d79f.58ec9",
+        "type": "serial in",
+        "z": "96ad61a5.d12538",
+        "name": "Arduino out",
+        "serial": "ef194370.81a618",
+        "x": 118,
+        "y": 82.5,
+        "wires": [
+            [
+                "7262c95a.f543b8",
+                "7d2d7a7c.b9dec4"
+            ]
+        ]
+    },
+    {
+        "id": "bc52888f.0cff48",
+        "type": "function",
+        "z": "96ad61a5.d12538",
+        "name": "Enrich Payload",
+        "func": "//var raw = {\"d\":JSON.parse(global.get(\"uno\"),global.get(\"hat\"))}\nvar uno = global.get(\"uno\");\nvar hat = global.get(\"hat\");\n\n// simulate battery level\nvar bat = 0;\nif(hat && hat.humidity) {\n    bat = hat.humidity;\n} else {\n    bat = (uno.solar+uno.ldr)/20;\n}\nnow=new Date()\n\nmsg.payload = {\"d\":{\"ts\":now.getTime(), \"led\":uno.leds,\"ldr\":uno.ldr,\"solar\":uno.solar,\"temp\":uno.temp,\"bat\":bat}};\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 427,
+        "y": 138,
+        "wires": [
+            [
+                "3455dba9.c67c5c",
+                "85bc61aa.3f61a"
+            ]
+        ]
+    },
+    {
+        "id": "3455dba9.c67c5c",
+        "type": "debug",
+        "z": "96ad61a5.d12538",
+        "name": "",
+        "active": false,
+        "console": "false",
+        "complete": "false",
+        "x": 498,
+        "y": 243,
+        "wires": []
+    },
+    {
+        "id": "cfff5458.5e9de8",
+        "type": "serial out",
+        "z": "96ad61a5.d12538",
+        "name": "Arduino In",
+        "serial": "ef194370.81a618",
+        "x": 355,
+        "y": 380,
+        "wires": []
+    },
+    {
+        "id": "cbb05e62.c49d98",
+        "type": "comment",
+        "z": "96ad61a5.d12538",
+        "name": "Sending Event to Watson IoT",
+        "info": "",
+        "x": 155,
+        "y": 39,
+        "wires": []
+    },
+    {
+        "id": "fd071643.7c977",
+        "type": "change",
+        "z": "96ad61a5.d12538",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "uno",
+                "pt": "global",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 340,
+        "y": 80,
+        "wires": [
+            [
+                "bc52888f.0cff48"
+            ]
+        ]
+    },
+    {
+        "id": "ba7c521.5a89ab",
+        "type": "comment",
+        "z": "96ad61a5.d12538",
+        "name": "Listening to Command from Watson IoT",
+        "info": "",
+        "x": 177.5,
+        "y": 337.25,
+        "wires": []
+    },
+    {
+        "id": "eea0fa9b.328c38",
+        "type": "inject",
+        "z": "96ad61a5.d12538",
+        "name": "",
+        "topic": "",
+        "payload": "RGBWOY",
+        "payloadType": "str",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": "",
+        "x": 109,
+        "y": 373,
+        "wires": [
+            [
+                "cfff5458.5e9de8"
+            ]
+        ]
+    },
+    {
+        "id": "fe21b44.d43ddc8",
+        "type": "inject",
+        "z": "8a9cf629.bbfde8",
+        "name": "",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "x": 138,
+        "y": 72.99998474121094,
+        "wires": [
+            [
+                "4ec0905c.a349c",
+                "fbf0b0c7.f526"
+            ]
+        ]
+    },
+    {
+        "id": "fbf0b0c7.f526",
+        "type": "exec",
+        "z": "8a9cf629.bbfde8",
+        "command": "vcgencmd",
+        "addpay": false,
+        "append": "measure_temp",
+        "useSpawn": "false",
+        "timer": "",
+        "oldrc": false,
+        "name": "getCPUtemp",
+        "x": 316,
+        "y": 75.49998474121094,
+        "wires": [
+            [
+                "8dea0e4d.6cd73"
+            ],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "8dea0e4d.6cd73",
+        "type": "function",
+        "z": "8a9cf629.bbfde8",
+        "name": "Set Payload",
+        "func": "var hat = global.get(\"hat\");\nvar stick = global.get(\"joy\");\nvar pi = global.get(\"pi\");\n\nvar temp;\nif(hat && hat.temperature) {\n    temp=hat.temperature;\n}\n\nvar joy;\nif(stick && stick.key) {\n    joy = stick.key;\n}\n\nmsg.payload = {\"d\":{\"volt\":JSON.parse(pi.replace(\"volt=\",\"\").replace(\"V\\n\",\"\")),\"temp\":temp,\"joy\":joy,\"cputemp\":JSON.parse(msg.payload.replace(\"temp=\",\"\").replace(\"'C\\n\",\"\"))}};\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 486,
+        "y": 65,
+        "wires": [
+            [
+                "e58ae15a.6bdea8"
+            ]
+        ]
+    },
+    {
+        "id": "4ec0905c.a349c",
+        "type": "exec",
+        "z": "8a9cf629.bbfde8",
+        "command": "vcgencmd",
+        "addpay": true,
+        "append": "measure_volts",
+        "useSpawn": "false",
+        "timer": "",
+        "oldrc": false,
+        "name": "getVolts",
+        "x": 304.5,
+        "y": 127.24998474121094,
+        "wires": [
+            [
+                "3bdb3719.5c849"
+            ],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "3bdb3719.5c849",
+        "type": "change",
+        "z": "8a9cf629.bbfde8",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "pi",
+                "pt": "global",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 483.5,
+        "y": 118.74998474121094,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "e58ae15a.6bdea8",
+        "type": "debug",
+        "z": "8a9cf629.bbfde8",
+        "name": "",
+        "active": true,
+        "console": "false",
+        "complete": "false",
+        "x": 653.5,
+        "y": 120.49998474121094,
+        "wires": []
+    },
+    {
+        "id": "b2133073.8546f8",
+        "type": "json",
+        "z": "96ad61a5.d12538",
+        "name": "",
+        "pretty": false,
+        "x": 238,
+        "y": 181,
+        "wires": [
+            [
+                "fd071643.7c977"
+            ]
+        ]
+    },
+    {
+        "id": "2af63d93.3f36a2",
+        "type": "change",
+        "z": "abd054f9.6a7098",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "hat",
+                "pt": "global",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 420,
+        "y": 40,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "f235ecee.3bbe3",
+        "type": "rpi-sensehat in",
+        "z": "abd054f9.6a7098",
+        "name": "Sense Hat Environment",
+        "motion": false,
+        "env": true,
+        "stick": false,
+        "x": 129,
+        "y": 44,
+        "wires": [
+            [
+                "2af63d93.3f36a2"
+            ]
+        ]
+    },
+    {
+        "id": "226a8645.5d86da",
+        "type": "change",
+        "z": "abd054f9.6a7098",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "joy",
+                "pt": "global",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 360,
+        "y": 200,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "c4243e16.7e073",
+        "type": "rpi-sensehat in",
+        "z": "abd054f9.6a7098",
+        "name": "Sense Hat Joystick",
+        "motion": false,
+        "env": false,
+        "stick": true,
+        "x": 122,
+        "y": 195.25,
+        "wires": [
+            [
+                "226a8645.5d86da"
+            ]
+        ]
+    },
+    {
+        "id": "9bac9300.5b108",
+        "type": "rpi-sensehat out",
+        "z": "d03a8c2c.7ec968",
+        "name": "",
+        "x": 710,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "ef546e44.5db928",
+        "type": "function",
+        "z": "d03a8c2c.7ec968",
+        "name": "",
+        "func": "os=global.get('os');\n\n//log=function(msg) {node.send([null,{payload:''+msg}]);};\nlog=function(msg) {};\n\nif(!os) {\n    log('os module not found, set in settings.js');\n    msg= [null,null]\n} else {\n    var ipAddress=\"No IP\";\n    var color='red';\n    var netifs=os.networkInterfaces();\n    \n    for(var netname in netifs) {\n        netif=netifs[netname];\n        log('netname='+netname);\n        // netif is an array\n        for(var n in netif){\n            for(var p in netif[n]) {\n                log(''+netname+'['+n+']['+p+']='+netif[n][p]);\n            }\n            // Get IPV4 address that is not internal\n            if(!netif[n].internal && netif[n].family==='IPv4') {\n                ipAddress=netif[n].address;\n                color='blue';\n            }\n        }\n        //node.send([null,{payload:'address='+netif.address}]);\n        //node.send([null,{payload:'cidr='+netif.cidr}]);\n    }\n}\n\n\nreturn [{'payload':ipAddress,'color':color,'speed':5},null];",
+        "outputs": "2",
+        "noerr": 0,
+        "x": 450,
+        "y": 100,
+        "wires": [
+            [
+                "9bac9300.5b108"
+            ],
+            [
+                "a18d008b.c2e218"
+            ]
+        ],
+        "outputLabels": [
+            "msg",
+            "log"
+        ]
+    },
+    {
+        "id": "526c83a2.8d5214",
+        "type": "inject",
+        "z": "d03a8c2c.7ec968",
+        "name": "",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "x": 104.5,
+        "y": 104,
+        "wires": [
+            [
+                "ef546e44.5db928"
+            ]
+        ]
+    },
+    {
+        "id": "75983bf0.e17374",
+        "type": "comment",
+        "z": "d03a8c2c.7ec968",
+        "name": "Disable Flow after startup",
+        "info": "This flow prints the IP address of the raspi on the sense Hat\nThe flow can be disabled after startup to avoid interfering\nwith other flows",
+        "x": 450,
+        "y": 40,
+        "wires": []
+    },
+    {
+        "id": "1ff39d18.ed0c3b",
+        "type": "catch",
+        "z": "d03a8c2c.7ec968",
+        "name": "",
+        "scope": [
+            "9bac9300.5b108",
+            "586269c.cc2fc98"
+        ],
+        "x": 201.49998474121094,
+        "y": 376.59999084472656,
+        "wires": [
+            [
+                "7922f3b3.c8514c"
+            ]
+        ]
+    },
+    {
+        "id": "a18d008b.c2e218",
+        "type": "debug",
+        "z": "d03a8c2c.7ec968",
+        "name": "",
+        "active": true,
+        "console": "false",
+        "complete": "false",
+        "x": 704.4999847412109,
+        "y": 234.99998474121094,
+        "wires": []
+    },
+    {
+        "id": "586269c.cc2fc98",
+        "type": "rpi-sensehat in",
+        "z": "d03a8c2c.7ec968",
+        "name": "",
+        "motion": false,
+        "env": false,
+        "stick": true,
+        "x": 97.5,
+        "y": 228.59999084472656,
+        "wires": [
+            [
+                "4f211f3b.1e21b"
+            ]
+        ]
+    },
+    {
+        "id": "4f211f3b.1e21b",
+        "type": "switch",
+        "z": "d03a8c2c.7ec968",
+        "name": "",
+        "property": "payload.key",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "ENTER",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "outputs": 1,
+        "x": 290,
+        "y": 180,
+        "wires": [
+            [
+                "c5b7f9bb.b88e7"
+            ]
+        ]
+    },
+    {
+        "id": "c5b7f9bb.b88e7",
+        "type": "switch",
+        "z": "d03a8c2c.7ec968",
+        "name": "",
+        "property": "payload.state",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "1",
+                "vt": "num"
+            }
+        ],
+        "checkall": "true",
+        "outputs": 1,
+        "x": 350,
+        "y": 240,
+        "wires": [
+            [
+                "ef546e44.5db928"
+            ]
+        ]
+    },
+    {
+        "id": "83b4a06c.c937c8",
+        "type": "catch",
+        "z": "abd054f9.6a7098",
+        "name": "",
+        "scope": [
+            "f235ecee.3bbe3",
+            "c4243e16.7e073"
+        ],
+        "x": 157.49998474121094,
+        "y": 358.59999084472656,
+        "wires": [
+            [
+                "e7e6319b.38517"
+            ]
+        ]
+    },
+    {
+        "id": "b0e66591.15937",
+        "type": "debug",
+        "z": "abd054f9.6a7098",
+        "name": "",
+        "active": true,
+        "console": "false",
+        "complete": "payload",
+        "x": 355.49998474121094,
+        "y": 352.99998474121094,
+        "wires": []
+    },
+    {
+        "id": "e7e6319b.38517",
+        "type": "template",
+        "z": "abd054f9.6a7098",
+        "name": "",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "plain",
+        "template": "Exception, probably no SenseHat",
+        "output": "str",
+        "x": 255.49998474121094,
+        "y": 267.8000030517578,
+        "wires": [
+            [
+                "b0e66591.15937"
+            ]
+        ]
+    },
+    {
+        "id": "7922f3b3.c8514c",
+        "type": "template",
+        "z": "d03a8c2c.7ec968",
+        "name": "",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "plain",
+        "template": "No SenseHat!",
+        "output": "str",
+        "x": 421.49998474121094,
+        "y": 313.8000030517578,
+        "wires": [
+            [
+                "a18d008b.c2e218"
+            ]
+        ]
+    },
+    {
+        "id": "e21cbccb.65444",
+        "type": "link in",
+        "z": "a67a924a.63657",
+        "name": "SendToWIoTP",
+        "links": [
+            "85bc61aa.3f61a"
+        ],
+        "x": 93,
+        "y": 50,
+        "wires": [
+            [
+                "fd706082.af9d7",
+                "b2ab3c1b.5fd36"
+            ]
+        ]
+    },
+    {
+        "id": "b2ab3c1b.5fd36",
+        "type": "debug",
+        "z": "a67a924a.63657",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 331,
+        "y": 137,
+        "wires": []
+    },
+    {
+        "id": "9183a502.fb1ba8",
+        "type": "debug",
+        "z": "a67a924a.63657",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 389,
+        "y": 266,
+        "wires": []
+    },
+    {
+        "id": "ffdf7b8b.f17438",
+        "type": "wiotp in",
+        "z": "a67a924a.63657",
+        "authType": "d",
+        "deviceKey": "",
+        "deviceType": "",
+        "deviceId": "",
+        "command": "+",
+        "commandType": "g",
+        "qos": 0,
+        "name": "",
+        "x": 107,
+        "y": 228,
+        "wires": [
+            [
+                "9183a502.fb1ba8",
+                "409a84a8.e9d24c"
+            ]
+        ]
+    },
+    {
+        "id": "fd706082.af9d7",
+        "type": "wiotp out",
+        "z": "a67a924a.63657",
+        "authType": "d",
+        "qs": "true",
+        "qsDeviceId": "00000000.0987654",
+        "deviceKey": "",
+        "deviceType": "",
+        "deviceId": "",
+        "event": "event",
+        "format": "json",
+        "qos": "",
+        "name": "",
+        "x": 289,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "409a84a8.e9d24c",
+        "type": "link out",
+        "z": "a67a924a.63657",
+        "name": "WIoTPCmdReceive",
+        "links": [
+            "e62f3d67.a5797"
+        ],
+        "x": 305,
+        "y": 332,
+        "wires": []
+    },
+    {
+        "id": "85bc61aa.3f61a",
+        "type": "link out",
+        "z": "96ad61a5.d12538",
+        "name": "LampJSON",
+        "links": [
+            "e21cbccb.65444"
+        ],
+        "x": 512,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "7262c95a.f543b8",
+        "type": "debug",
+        "z": "96ad61a5.d12538",
+        "name": "Trace Serial",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "x": 152,
+        "y": 292,
+        "wires": []
+    },
+    {
+        "id": "7d2d7a7c.b9dec4",
+        "type": "function",
+        "z": "96ad61a5.d12538",
+        "name": "FixHexa",
+        "func": "// fix hexadecimal in JSON\nregex=/(.*leds\":)([0-9a-f]*)(,.*)/\nmsg.payload=msg.payload.replace(regex,'$1\"$2\"$3')\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 195,
+        "y": 131,
+        "wires": [
+            [
+                "b2133073.8546f8",
+                "7262c95a.f543b8"
+            ]
+        ]
+    },
+    {
+        "id": "a3c1fb6.81ed908",
+        "type": "catch",
+        "z": "96ad61a5.d12538",
+        "name": "",
+        "scope": [
+            "b2133073.8546f8"
+        ],
+        "x": 221,
+        "y": 240,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "e62f3d67.a5797",
+        "type": "link in",
+        "z": "96ad61a5.d12538",
+        "name": "SetLEDs",
+        "links": [
+            "409a84a8.e9d24c"
+        ],
+        "x": 106,
+        "y": 438,
+        "wires": [
+            [
+                "cfff5458.5e9de8"
+            ]
+        ]
+    }
+]
