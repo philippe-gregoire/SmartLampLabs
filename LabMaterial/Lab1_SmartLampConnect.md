@@ -119,7 +119,8 @@ Navigate to the IBMCloud dashboard at http://cloud.ibm.com
 1. Now add an _Internet of Things_ service ![](images_Lab1/Lab1_SmartLampConnect-5ec5e85d.png)
 1. Select *Configure Continuous Delivery* ![](images_Lab1/20190911_2dd4b1aa.png).
 1. Make sure you select **Cloud Foundry** as target ![](images_Lab1/Lab1_SmartLampConnect-929bfd47.png)
-1.  Scroll down and confirm the details then click `[Create]` ![](images_Lab1/Lab1_SmartLampConnect-b886756c.png)
+1. Increase the memory to 256MB from the 128MB default
+1. Scroll down and confirm the details then click `[Create]` ![](images_Lab1/Lab1_SmartLampConnect-111df524.png)
 1. Confirm toolchain creation, and wait for the deployment to complete: ![](images_Lab1/Lab1_SmartLampConnect-91210bcd.png)
 1. Select the `Visit App URL` link ![](images_Lab1/Lab1_SmartLampConnect-14d9ade5.png)
 1. You are taken to your Node-RED instance running in IBMCloud
